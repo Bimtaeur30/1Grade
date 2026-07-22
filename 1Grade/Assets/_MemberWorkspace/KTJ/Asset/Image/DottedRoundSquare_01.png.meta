@@ -1,0 +1,689 @@
+fileFormatVersion: 2
+guid: 9ce935dfcf9511748a29be02633bf117
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -678950283557541179
+    second: DottedRoundSquare_01_0
+  - first:
+      213: -8329840254483341506
+    second: DottedRoundSquare_01_1
+  - first:
+      213: -4552724047482327005
+    second: DottedRoundSquare_01_2
+  - first:
+      213: -1685852075744148561
+    second: DottedRoundSquare_01_3
+  - first:
+      213: -8764593246563222355
+    second: DottedRoundSquare_01_4
+  - first:
+      213: -6672316692998823660
+    second: DottedRoundSquare_01_5
+  - first:
+      213: 2969588478486658305
+    second: DottedRoundSquare_01_6
+  - first:
+      213: 5596075481092120558
+    second: DottedRoundSquare_01_7
+  - first:
+      213: -4371519800368007334
+    second: DottedRoundSquare_01_8
+  - first:
+      213: 5726045868384012391
+    second: DottedRoundSquare_01_9
+  - first:
+      213: 8627613968155422135
+    second: DottedRoundSquare_01_10
+  - first:
+      213: 6221120859032136940
+    second: DottedRoundSquare_01_11
+  - first:
+      213: 7685281769382618076
+    second: DottedRoundSquare_01_12
+  - first:
+      213: -5966940779435980259
+    second: DottedRoundSquare_01_13
+  - first:
+      213: -8030306018626413024
+    second: DottedRoundSquare_01_14
+  - first:
+      213: -5810253751059562069
+    second: DottedRoundSquare_01_15
+  - first:
+      213: 2592750822690636299
+    second: DottedRoundSquare_01_16
+  - first:
+      213: 7378840043682405429
+    second: DottedRoundSquare_01_17
+  - first:
+      213: -6691030735026940963
+    second: DottedRoundSquare_01_18
+  - first:
+      213: -6963649822608849484
+    second: DottedRoundSquare_01_19
+  - first:
+      213: 6907977216286357715
+    second: DottedRoundSquare_01_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 1024
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_0
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 855
+        width: 95
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cae6687052e396f0800000000000000
+      internalID: -678950283557541179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_1
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 857
+        width: 105
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e3f55c30c66766c80800000000000000
+      internalID: -8329840254483341506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_2
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 858
+        width: 101
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 320ff65a99971d0c0800000000000000
+      internalID: -4552724047482327005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_3
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 857
+        width: 101
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa34a691876aa98e0800000000000000
+      internalID: -1685852075744148561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_4
+      rect:
+        serializedVersion: 2
+        x: 719
+        y: 855
+        width: 101
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dacbfc901e8ed5680800000000000000
+      internalID: -8764593246563222355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_5
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 767
+        width: 62
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41165e4b15b2763a0800000000000000
+      internalID: -6672316692998823660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_6
+      rect:
+        serializedVersion: 2
+        x: 831
+        y: 767
+        width: 59
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 10d3a45dcf8163920800000000000000
+      internalID: 2969588478486658305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_7
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 639
+        width: 38
+        height: 105
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eefd4c2300149ad40800000000000000
+      internalID: 5596075481092120558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_8
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 639
+        width: 37
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a577a7227ed3553c0800000000000000
+      internalID: -4371519800368007334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 512
+        width: 41
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7684f902160077f40800000000000000
+      internalID: 5726045868384012391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_10
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 511
+        width: 35
+        height: 99
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7bd2a1761317bb770800000000000000
+      internalID: 8627613968155422135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_11
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 383
+        width: 38
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cec226bd57cd55650800000000000000
+      internalID: 6221120859032136940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_12
+      rect:
+        serializedVersion: 2
+        x: 852
+        y: 383
+        width: 37
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cd326d60d0b97aa60800000000000000
+      internalID: 7685281769382618076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_13
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 255
+        width: 38
+        height: 101
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1a0deda9fa213da0800000000000000
+      internalID: -5966940779435980259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_14
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 256
+        width: 35
+        height: 100
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02e5712f83f9e8090800000000000000
+      internalID: -8030306018626413024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_15
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 139
+        width: 87
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba1c6395ff4dd5fa0800000000000000
+      internalID: -5810253751059562069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_16
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 127
+        width: 102
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b02c391e22d4bf320800000000000000
+      internalID: 2592750822690636299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_17
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 127
+        width: 105
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 53c1e1acce7e66660800000000000000
+      internalID: 7378840043682405429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_18
+      rect:
+        serializedVersion: 2
+        x: 527
+        y: 127
+        width: 105
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd39f714ffea423a0800000000000000
+      internalID: -6691030735026940963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_19
+      rect:
+        serializedVersion: 2
+        x: 657
+        y: 127
+        width: 104
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b5003f91652c5f90800000000000000
+      internalID: -6963649822608849484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DottedRoundSquare_01_20
+      rect:
+        serializedVersion: 2
+        x: 791
+        y: 139
+        width: 87
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d87d3d9da01edf50800000000000000
+      internalID: 6907977216286357715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      DottedRoundSquare_01_0: -678950283557541179
+      DottedRoundSquare_01_1: -8329840254483341506
+      DottedRoundSquare_01_10: 8627613968155422135
+      DottedRoundSquare_01_11: 6221120859032136940
+      DottedRoundSquare_01_12: 7685281769382618076
+      DottedRoundSquare_01_13: -5966940779435980259
+      DottedRoundSquare_01_14: -8030306018626413024
+      DottedRoundSquare_01_15: -5810253751059562069
+      DottedRoundSquare_01_16: 2592750822690636299
+      DottedRoundSquare_01_17: 7378840043682405429
+      DottedRoundSquare_01_18: -6691030735026940963
+      DottedRoundSquare_01_19: -6963649822608849484
+      DottedRoundSquare_01_2: -4552724047482327005
+      DottedRoundSquare_01_20: 6907977216286357715
+      DottedRoundSquare_01_3: -1685852075744148561
+      DottedRoundSquare_01_4: -8764593246563222355
+      DottedRoundSquare_01_5: -6672316692998823660
+      DottedRoundSquare_01_6: 2969588478486658305
+      DottedRoundSquare_01_7: 5596075481092120558
+      DottedRoundSquare_01_8: -4371519800368007334
+      DottedRoundSquare_01_9: 5726045868384012391
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
