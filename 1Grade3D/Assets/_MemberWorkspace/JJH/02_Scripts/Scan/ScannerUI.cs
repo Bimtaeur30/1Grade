@@ -33,7 +33,6 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             if (canvasGroup.alpha == 0)
                 return;
 
-            Debug.Log(playerInput.MousePosition);
             Vector2 mousePos = playerInput.MousePosition;
             scannerCursor.position = mousePos;
 

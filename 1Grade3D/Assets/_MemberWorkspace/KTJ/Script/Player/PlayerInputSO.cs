@@ -1,4 +1,5 @@
 using _MemberWorkspace.JJH._02_Scripts.Map;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +7,9 @@ using UnityEngine.InputSystem;
 public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
 {
     [SerializeField] private LayerMask itemLayer;
+
+    public Action OnMouseClicked;
+    public Action OnScannerKeyPressed;
 
     public Vector2 MoveInput { get; private set; }
     public Vector2 MousePosition => mousePosition;
@@ -53,17 +57,28 @@ public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
         mousePosition = context.ReadValue<Vector2>();
     }
 
-    public GroundTile GetGroundTile()
+    public GroundItem GetGroundItem()
     {
         Ray ray = MainCamera.ScreenPointToRay(mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, MainCamera.farClipPlane, itemLayer))
         {
-            GroundTile tile = hit.collider.GetComponentInParent<GroundTile>();
-            if (tile.HasItem)
-                return tile;
+            GroundItem tile = hit.collider.GetComponentInParent<GroundItem>();
+            return tile;
         }
 
         return null;
+    }
+
+    public void OnMouseClick(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnMouseClicked?.Invoke();
+    }
+
+    public void OnScanner(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnScannerKeyPressed?.Invoke();
     }
 }
