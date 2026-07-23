@@ -7,7 +7,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         public static GameData Instance { get; private set; }
 
         public int CurrentLevel { get; set; } = 1;
-        public int CurrentMoney { get; set; } = 0;
+        public int CurrentMoney { get; set; } = 1000;
         
         public int CurrentMaxWeightLevel { get; set; } = 1;
         public int CurrentRunSpeedLevel { get; set; } = 1;
