@@ -12,7 +12,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         [SerializeField] private PlayerStat playerStat;
 
         [SerializeField] private float scanDuration = 5f;
-        [SerializeField] private float chargeDuration = 0.3f;
+        [SerializeField] private float chargeDuration = 0.15f;
         [SerializeField] private float scanCoolTime = 5f;
 
         private bool _isScanning;
