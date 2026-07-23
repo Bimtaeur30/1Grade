@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 2602209866865838534}
   - component: {fileID: 7843165157139357491}
   - component: {fileID: 1232861763131009761}
+  - component: {fileID: 479166863001914201}
   m_Layer: 5
   m_Name: CollectedItemUI
   m_TagString: Untagged
@@ -153,6 +154,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &479166863001914201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6863846850130483837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14391f313ca94e2bafc1723c60ced704, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.UI.CollectedItemUI
+  <NameText>k__BackingField: {fileID: 9183219539384037041}
+  <PriceText>k__BackingField: {fileID: 6629978709837587779}
+  <ItemIcon>k__BackingField: {fileID: 4864513881140844286}
 --- !u!1 &8128079689303248580
 GameObject:
   m_ObjectHideFlags: 0
