@@ -1,4 +1,5 @@
 ﻿using _MemberWorkspace.JJW.Asset._02_Script.Item;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,26 +8,31 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 {
     public class ItemInfoUI : MonoBehaviour
     {
-        [SerializeField] private Image icon;
+        [Serializable]
+        public struct ItemInfoUIs
+        {
+            public Image icon;
+            public TMP_Text nameText;
+            public TMP_Text descriptionText;
+            public TMP_Text gradeText;
+            public TMP_Text durabilityText;
+            public TMP_Text weightText;
+            public TMP_Text priceText;
+        }
 
-        [SerializeField] private TMP_Text nameText;
-        [SerializeField] private TMP_Text descriptionText;
-        [SerializeField] private TMP_Text gradeText;
-        [SerializeField] private TMP_Text durabilityText;
-        [SerializeField] private TMP_Text weightText;
-        [SerializeField] private TMP_Text priceText;
+        [SerializeField] private ItemInfoUIs itemInfoUI;
 
         public void Show(ItemSO item)
         {
             gameObject.SetActive(true);
 
-            icon.sprite = item.Icon;
-            nameText.text = item.Name;
-            descriptionText.text = item.Description;
-            gradeText.text = item.Grade.ToString();
-            durabilityText.text = item.MaxDurability.ToString();
-            weightText.text = item.Weight.ToString("F1");
-            priceText.text = item.Price.ToString();
+            itemInfoUI.icon.sprite = item.Icon;
+            itemInfoUI.nameText.text = item.Name;
+            itemInfoUI.descriptionText.text = item.Description;
+            itemInfoUI.gradeText.text = item.Grade.ToString();
+            itemInfoUI.durabilityText.text = item.MaxDurability.ToString();
+            itemInfoUI.weightText.text = item.Weight.ToString("F1");
+            itemInfoUI.priceText.text = item.Price.ToString();
         }
 
         public void Hide()

@@ -6,31 +6,56 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 {
     public class ScannerUI : MonoBehaviour
     {
-        [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private PlayerInputSO playerInput;
 
-        [SerializeField] private Image cctvImage;
-        [SerializeField] private Image mouseGauge;
+        [SerializeField] private RectTransform scannerCursor;
+        [SerializeField] private RectTransform itemInfoRect;
+        [SerializeField] private CanvasGroup canvasGroup;
+        [SerializeField] private Image scannerImage;
+        [SerializeField] private Image scannerGauge;
 
         [SerializeField] private ItemInfoUI itemInfoUI;
 
+        [SerializeField] private Vector2 itemInfoOffset = new(25f, -25f);
+
+        private void Awake()
+        {
+            Close();
+        }
+
+        private void Update()
+        {
+            if (canvasGroup.alpha == 0)
+                return;
+
+            Debug.Log(playerInput.MousePosition);
+            Vector2 mousePos = playerInput.MousePosition;
+            scannerCursor.position = mousePos;
+            itemInfoRect.position = mousePos + itemInfoOffset;
+        }
+
         public void Open()
         {
-            gameObject.SetActive(true);
-
             canvasGroup.alpha = 1;
+            canvasGroup.interactable = true;
+            canvasGroup.blocksRaycasts = true;
         }
 
         public void Close()
         {
-            gameObject.SetActive(false);
+            canvasGroup.alpha = 0;
+            canvasGroup.interactable = false;
+            canvasGroup.blocksRaycasts = false;
+
+            HideItemInfo();
         }
 
         public void SetGauge(float value)
         {
-            mouseGauge.fillAmount = Mathf.Clamp01(value);
+            scannerGauge.fillAmount = Mathf.Clamp01(value);
         }
 
-        public void ShowItem(ItemSO item)
+        public void SetItemInfo(ItemSO item)
         {
             itemInfoUI.Show(item);
         }
