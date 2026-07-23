@@ -24,6 +24,16 @@ namespace _MemberWorkspace.JJW.Asset._02_Script
 
         public SceneType CurrentScene {get; private set; } = SceneType.MainMenu;
 
+        private void Awake()
+        {
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject); return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        
         public void GoToScene(SceneType sceneType)
         {
             string sceneName = GetSceneName(sceneType);
