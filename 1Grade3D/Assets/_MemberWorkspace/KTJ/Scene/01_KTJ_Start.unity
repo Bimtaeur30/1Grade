@@ -21342,7 +21342,7 @@ MonoBehaviour:
   powerExpandDuration: 0.32
   powerSettleDuration: 0.12
   closeFadeDuration: 0.25
-  noiseJitter: 6
+  noiseJitter: 50
 --- !u!225 &2083643447
 CanvasGroup:
   m_ObjectHideFlags: 0
