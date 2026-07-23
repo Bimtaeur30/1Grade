@@ -8,6 +8,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
     {
         public ItemSO Item { get; private set; }
         public bool HasItem { get; private set; }
+        public int GroundIndex { get; private set; }
 
         private MeshRenderer groundRenderer;
         private SpriteRenderer itemSprite;
@@ -24,10 +25,10 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             itemSprite = GetComponentInChildren<SpriteRenderer>();
         }
 
-        public void InitItem(bool hasItem, ItemSO item = null)
+        public void Initialize(int groundIndex, bool hasItem, ItemSO item = null)
         {
+            GroundIndex = groundIndex;
             HasItem = hasItem;
-
             itemSprite.gameObject.SetActive(HasItem);
             if (HasItem)
             {

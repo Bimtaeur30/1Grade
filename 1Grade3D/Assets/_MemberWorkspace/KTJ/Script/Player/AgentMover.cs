@@ -9,6 +9,7 @@ public sealed class AgentMover : MonoBehaviour
     [SerializeField] private PlayerInputSO playerInput;
 
     [Header("Movement")]
+    [SerializeField] private PlayerStat playerStat;
     [SerializeField, Min(0f)] private float moveSpeed = 5f;
 
     [Header("Direction Visuals")]
@@ -29,6 +30,8 @@ public sealed class AgentMover : MonoBehaviour
     private void Awake()
     {
         rigidbodyComponent = GetComponent<Rigidbody>();
+        playerStat ??= GetComponent<PlayerStat>();
+        SyncMoveSpeedWithPlayerStat();
         CacheInitialRotations();
         ApplyFacing(false, true);
     }
@@ -36,11 +39,23 @@ public sealed class AgentMover : MonoBehaviour
     private void OnEnable()
     {
         playerInput?.EnableInput();
+
+        if (playerStat != null)
+        {
+            playerStat.RunSpeedChanged += SetMoveSpeed;
+            SetMoveSpeed(playerStat.RunSpeed);
+        }
     }
 
     private void OnDisable()
     {
         playerInput?.DisableInput();
+
+        if (playerStat != null)
+        {
+            playerStat.RunSpeedChanged -= SetMoveSpeed;
+        }
+
         StopMoveParticle();
     }
 
@@ -83,6 +98,19 @@ public sealed class AgentMover : MonoBehaviour
     public void SetPlayerInput(PlayerInputSO input)
     {
         playerInput = input;
+    }
+
+    private void SyncMoveSpeedWithPlayerStat()
+    {
+        if (playerStat != null)
+        {
+            SetMoveSpeed(playerStat.RunSpeed);
+        }
+    }
+
+    private void SetMoveSpeed(int speed)
+    {
+        moveSpeed = Mathf.Max(0f, speed);
     }
 
     private void StopHorizontalMovement()
