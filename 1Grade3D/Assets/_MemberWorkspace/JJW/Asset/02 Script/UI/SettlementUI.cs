@@ -28,6 +28,8 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI
         
         private int _currentMoney;
         private Tween _moneyTween;
+        private Coroutine _drawRoutine;
+        private Coroutine _typeRoutine;
 
         private void Start()
         {
@@ -47,19 +49,28 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI
         }
 
 
+
         private void HandleSettlement(SettlementEvent evt)
         {
             ResetSettlement();
 
             settlementUIPanel.DOFade(1, fadeDuration).OnComplete(() =>
             {
-                StartCoroutine(DrawCollectedItemRoutine(evt.items));
+                _drawRoutine = StartCoroutine(DrawCollectedItemRoutine(evt.items));
             });
         }
 
-        private void ResetSettlement() 
+        private void ResetSettlement()
         {
+            if (_drawRoutine != null) StopCoroutine(_drawRoutine);
+            if (_typeRoutine != null) StopCoroutine(_typeRoutine);
             _moneyTween?.Kill();
+            settlementUIPanel.DOKill();
+
+            var color = settlementUIPanel.color;
+            color.a = 0;
+            settlementUIPanel.color = color;
+
             _currentMoney = 0;
             totalMoneyText.text = "0";
 
@@ -79,7 +90,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI
 
             int finalMoney = _currentMoney - monthlyRent;
             string finalText = $"{_currentMoney} - {monthlyRent} = {finalMoney}원";
-            StartCoroutine(TypeText(finalText));
+            _typeRoutine = StartCoroutine(TypeText(finalText));
         }
 
         private void CreateItemUI(ItemSO item)
