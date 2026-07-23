@@ -7,8 +7,10 @@ using UnityEngine.InputSystem;
 public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
 {
     [SerializeField] private LayerMask itemLayer;
+    [SerializeField] private LayerMask scalePlateLayer;
 
-    public Action OnMouseClicked;
+    public Action OnMousePerformed;
+    public Action OnMouseCanceled;
     public Action OnScannerKeyPressed;
 
     public Vector2 MoveInput { get; private set; }
@@ -57,6 +59,21 @@ public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
         mousePosition = context.ReadValue<Vector2>();
     }
 
+    public void OnMouseClick(InputAction.CallbackContext context)
+    {
+        if (context.started)
+            OnMousePerformed?.Invoke();
+
+        if (context.canceled)
+            OnMouseCanceled?.Invoke();
+    }
+
+    public void OnScanner(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnScannerKeyPressed?.Invoke();
+    }
+
     public GroundItem GetGroundItem()
     {
         Ray ray = MainCamera.ScreenPointToRay(mousePosition);
@@ -70,15 +87,16 @@ public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
         return null;
     }
 
-    public void OnMouseClick(InputAction.CallbackContext context)
+    public ScalePlate GetScalePlate()
     {
-        if (context.performed)
-            OnMouseClicked?.Invoke();
-    }
+        Ray ray = MainCamera.ScreenPointToRay(mousePosition);
 
-    public void OnScanner(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-            OnScannerKeyPressed?.Invoke();
+        if (Physics.Raycast(ray, out RaycastHit hit, MainCamera.farClipPlane, scalePlateLayer))
+        {
+            ScalePlate plate = hit.collider.GetComponentInParent<ScalePlate>();
+            return plate;
+        }
+
+        return null;
     }
 }
