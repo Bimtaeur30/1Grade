@@ -20361,7 +20361,7 @@ MonoBehaviour:
   scannerUI: {fileID: 2083643446}
   playerStat: {fileID: 984081299}
   scanDuration: 5
-  chargeDuration: 0.3
+  chargeDuration: 0.15
   scanCoolTime: 5
 --- !u!4 &1689489631
 Transform:
@@ -21044,6 +21044,12 @@ MonoBehaviour:
   canvasGroup: {fileID: 2083643447}
   scannerGauge: {fileID: 1058505054}
   itemInfoUI: {fileID: 2123196322}
+  effectRoot: {fileID: 0}
+  powerLineDuration: 0.12
+  powerExpandDuration: 0.32
+  powerSettleDuration: 0.12
+  closeFadeDuration: 0.25
+  noiseJitter: 3
 --- !u!225 &2083643447
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -26564,6 +26570,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EyeLightEffect
   PlayerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
   LightObject: {fileID: 1562201308}
+  GlobalVolume: {fileID: 0}
 --- !u!114 &7720689672760880227
 MonoBehaviour:
   m_ObjectHideFlags: 0
