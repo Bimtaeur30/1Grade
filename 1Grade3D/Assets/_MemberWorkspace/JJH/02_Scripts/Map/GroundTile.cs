@@ -53,7 +53,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             _groundItem = poolItem;
 
             poolItem.transform.position = transform.position + Vector3.up * 0.5f;
-            poolItem.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+            poolItem.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-45, 45));
 
             poolItem.InitItem(Item);
 

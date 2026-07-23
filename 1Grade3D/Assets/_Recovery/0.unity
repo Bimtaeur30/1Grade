@@ -150,85 +150,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &69989137
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1334190832}
-    m_Modifications:
-    - target: {fileID: 1624732227010082, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_Name
-      value: Rain Particles
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.07206
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.39454
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0.14433
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198459716423156678, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198463104617649228, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198913305880061536, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-      propertyPath: playOnAwake
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
---- !u!4 &69989138 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4896653716000216, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-  m_PrefabInstance: {fileID: 69989137}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &69989139 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198913305880061536, guid: 18d653ec6ac008e43a69363f42d8c371, type: 3}
-  m_PrefabInstance: {fileID: 69989137}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &89448231
 GameObject:
   m_ObjectHideFlags: 0
@@ -19979,10 +19900,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJH._02_Scripts.Map.MapIntroCutscene
   mapGenerator: {fileID: 340377102}
-  rainParticle: {fileID: 69989139}
-  sunLight: {fileID: 1576854812}
-  rainyIntensity: 0.3
-  rainyColor: {r: 0.7, g: 0.75, b: 0.8, a: 1}
   introCamera: {fileID: 931148442}
   playerCamera: {fileID: 268787598}
   rotatePivot: {fileID: 1310713206}
@@ -20006,7 +19923,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1310713206}
-  - {fileID: 69989138}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1406916774
@@ -20648,11 +20564,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!108 &1576854812 stripped
-Light:
-  m_CorrespondingSourceObject: {fileID: 7297233346835673057, guid: 258e9ce83710b5d4894efc5443eaeb76, type: 3}
-  m_PrefabInstance: {fileID: 1319680585}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1618028059
 GameObject:
   m_ObjectHideFlags: 0
