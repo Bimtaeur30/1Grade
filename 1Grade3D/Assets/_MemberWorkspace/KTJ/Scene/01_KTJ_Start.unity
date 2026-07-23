@@ -448,7 +448,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.478
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -488,7 +488,7 @@ MonoBehaviour:
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
-  FollowOffset: {x: 0, y: 1.84, z: -3}
+  FollowOffset: {x: 0, y: 1.96, z: -3}
 --- !u!114 &268787598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -541,7 +541,7 @@ Transform:
   m_GameObject: {fileID: 268787595}
   serializedVersion: 2
   m_LocalRotation: {x: 0.25595188, y: 0, z: 0, w: 0.9666895}
-  m_LocalPosition: {x: 0, y: 1.87, z: -3}
+  m_LocalPosition: {x: 0, y: 1.99, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -775,7 +775,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 100
   m_LinearDamping: 0
-  m_AngularDamping: 0
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1133,7 +1133,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB2F9\uC2E0"
+  m_text: "\uD558\uC911\uD55C\uB3C4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d451c840fa921da4d847ae68eaf5728d, type: 2}
   m_sharedMaterial: {fileID: -3333158992232418969, guid: d451c840fa921da4d847ae68eaf5728d, type: 2}
@@ -1259,7 +1259,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 100
   m_LinearDamping: 0
-  m_AngularDamping: 0
+  m_AngularDamping: 10
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1556,7 +1556,7 @@ MonoBehaviour:
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0
+  m_FillAmount: 0.478
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
@@ -2524,7 +2524,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStat
   PlayerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
   <MaxWeight>k__BackingField: 50
-  <RunSpeed>k__BackingField: 10
+  <RunSpeed>k__BackingField: 2
   <ScanCooltime>k__BackingField: 0
 --- !u!1 &1062213493
 GameObject:
@@ -3154,7 +3154,7 @@ Transform:
   m_GameObject: {fileID: 1299718456}
   serializedVersion: 2
   m_LocalRotation: {x: 0.25595188, y: 0, z: 0, w: 0.9666895}
-  m_LocalPosition: {x: 0, y: 1.87, z: -3}
+  m_LocalPosition: {x: 0, y: 1.99, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3830,6 +3830,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Scale
   PlayerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
+  PlayerStat: {fileID: 984081299}
+  WeightSlider: {fileID: 246505458}
   LeftScalePlate: {fileID: 688256767}
   RightScalePlate: {fileID: 328773899}
 --- !u!1 &1734670466
@@ -9182,6 +9184,7 @@ GameObject:
   - component: {fileID: 7720689672760880225}
   - component: {fileID: 7720689672760880224}
   - component: {fileID: 7720689672760880223}
+  - component: {fileID: 7720689672760880226}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -9250,6 +9253,20 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 1
+--- !u!114 &7720689672760880226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7720689672760880222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c58d05c2d7bd79244a75ed4d5c73b8c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EyeLightEffect
+  PlayerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
+  LightObject: {fileID: 1562201308}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

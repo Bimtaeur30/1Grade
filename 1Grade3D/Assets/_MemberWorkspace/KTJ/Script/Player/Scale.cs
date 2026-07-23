@@ -1,6 +1,7 @@
 using GameLib.EventChannelSystem;
 using _MemberWorkspace.JJW.Asset._02_Script.Item;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum ScalePlateEnum
 {
@@ -10,18 +11,42 @@ public enum ScalePlateEnum
 public class Scale : MonoBehaviour
 {
     [SerializeField] private EventChannelSO PlayerChannel;
+    [SerializeField] private PlayerStat PlayerStat;
+    [SerializeField] private Slider WeightSlider;
     [SerializeField] private ScalePlate LeftScalePlate;
     [SerializeField] private ScalePlate RightScalePlate;
 
     private ItemSO currentItem;
+    private bool isSliderInitialized;
+    private bool hasReachedMaxWeight;
 
     private void Awake()
     {
-        PlayerChannel.AddListener<ItemEquipEvent>(HandleItemEquipEvent);
+        if (PlayerStat == null)
+        {
+            PlayerStat = GetComponentInChildren<PlayerStat>(true);
+        }
     }
-    private void OnDestroy()
+
+    private void OnEnable()
     {
-        PlayerChannel.RemoveListener<ItemEquipEvent>(HandleItemEquipEvent);
+        PlayerChannel?.AddListener<ItemEquipEvent>(HandleItemEquipEvent);
+
+        if (PlayerStat != null)
+        {
+            PlayerStat.MaxWeightChanged += HandleMaxWeightChanged;
+            HandleMaxWeightChanged(PlayerStat.MaxWeight);
+        }
+    }
+
+    private void OnDisable()
+    {
+        PlayerChannel?.RemoveListener<ItemEquipEvent>(HandleItemEquipEvent);
+
+        if (PlayerStat != null)
+        {
+            PlayerStat.MaxWeightChanged -= HandleMaxWeightChanged;
+        }
     }
 
     private void HandleItemEquipEvent(ItemEquipEvent @event)
@@ -50,5 +75,52 @@ public class Scale : MonoBehaviour
         }
 
         targetPlate.AddItem(currentItem);
+        AddItemWeight(currentItem.Weight);
+    }
+
+    private void HandleMaxWeightChanged(int maxWeight)
+    {
+        if (WeightSlider == null)
+        {
+            return;
+        }
+
+        WeightSlider.minValue = 0f;
+        WeightSlider.maxValue = Mathf.Max(0f, maxWeight);
+
+        if (!isSliderInitialized)
+        {
+            WeightSlider.value = 0f;
+            isSliderInitialized = true;
+        }
+
+        hasReachedMaxWeight =
+            WeightSlider.maxValue > 0f &&
+            WeightSlider.value >= WeightSlider.maxValue;
+    }
+
+    private void AddItemWeight(float weight)
+    {
+        if (WeightSlider == null)
+        {
+            return;
+        }
+
+        bool wasBelowMaxWeight = WeightSlider.value < WeightSlider.maxValue;
+        WeightSlider.value += weight;
+
+        if (wasBelowMaxWeight &&
+            WeightSlider.maxValue > 0f &&
+            WeightSlider.value >= WeightSlider.maxValue &&
+            !hasReachedMaxWeight)
+        {
+            hasReachedMaxWeight = true;
+            HandleMaxWeightReached();
+        }
+    }
+
+    public void HandleMaxWeightReached()
+    {
+        Debug.Log("Scale: 최대 무게에 도달했습니다.", this);
     }
 }
