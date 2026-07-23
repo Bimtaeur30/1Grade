@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
 
 namespace _MemberWorkspace.JJW.Asset._02_Script.Item
 {
-    public enum ItemGrade { Common,Normal,Legendary }
+    public enum ItemGrade { Common, Normal, Legendary }
 
     [CreateAssetMenu(fileName = "ItemSO", menuName = "Item/ItemSO", order = 0)]
     public class ItemSO : ScriptableObject

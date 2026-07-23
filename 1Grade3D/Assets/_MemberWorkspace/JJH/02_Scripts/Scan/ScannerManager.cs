@@ -1,7 +1,6 @@
 ﻿using _MemberWorkspace.JJH._02_Scripts.Map;
 using GameLib.EventChannelSystem;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace _MemberWorkspace.JJH._02_Scripts.Scan
 {
@@ -12,20 +11,35 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         [SerializeField] private ScannerUI scannerUI;
 
         [SerializeField] private float scanDuration = 5f;
+        [SerializeField] private float chargeDuration = 0.3f;
 
         private bool _isScanning;
+        private bool _isCharging;
         private float _remainTime;
-        private GroundTile _currentTile;
+        private float _chargeTime;
+
+        private GroundItem _currentItem;
+
+        private void Awake()
+        {
+            playerInput.OnScannerKeyPressed += UseScanner;
+        }
+
+        private void OnDestroy()
+        {
+            playerInput.OnScannerKeyPressed -= UseScanner;
+        }
 
         private void Update()
         {
-            if (Keyboard.current.aKey.wasPressedThisFrame)
-                UseScanner();
-
             if (!_isScanning)
                 return;
 
-            UpdateTimer();
+            if (_isCharging)
+                UpdateCharge();
+            else
+                UpdateTimer();
+
             UpdateHover();
         }
 
@@ -34,10 +48,14 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(true));
 
             _isScanning = true;
+            _isCharging = true;
+            _chargeTime = 0f;
             _remainTime = scanDuration;
 
+            Time.timeScale = 0.5f;
+
             scannerUI.Open();
-            scannerUI.SetGauge(1);
+            scannerUI.SetGauge(0);
         }
 
         private void StopScanner()
@@ -45,15 +63,32 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(false));
 
             _isScanning = false;
-            _currentTile = null;
+            _isCharging = false;
+            if (_currentItem != null)
+                _currentItem.SetOutline(0f);
+            _currentItem = null;
+
+            Time.timeScale = 1f;
 
             scannerUI.HideItemInfo();
             scannerUI.Close();
         }
 
+        private void UpdateCharge()
+        {
+            _chargeTime += Time.unscaledDeltaTime;
+            scannerUI.SetGauge(_chargeTime / chargeDuration);
+
+            if (_chargeTime >= chargeDuration)
+            {
+                _isCharging = false;
+                scannerUI.SetGauge(1);
+            }
+        }
+
         private void UpdateTimer()
         {
-            _remainTime -= Time.deltaTime;
+            _remainTime -= Time.unscaledDeltaTime;
 
             scannerUI.SetGauge(_remainTime / scanDuration);
 
@@ -63,25 +98,28 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
         private void UpdateHover()
         {
-            GroundTile tile = playerInput.GetGroundTile();
+            GroundItem item = playerInput.GetGroundItem();
 
-            if (tile == null || !tile.HasItem)
+            if (item == null)
             {
-                if (_currentTile != null)
+                if (_currentItem != null)
                 {
-                    _currentTile = null;
+                    _currentItem.SetOutline(0f);
+                    _currentItem = null;
                     scannerUI.HideItemInfo();
                 }
-
                 return;
             }
 
-            if (_currentTile == tile)
+            if (_currentItem == item)
                 return;
 
-            _currentTile = tile;
+            if (_currentItem != null)
+                _currentItem.SetOutline(0f);
 
-            scannerUI.SetItemInfo(tile.Item);
+            _currentItem = item;
+            item.SetOutline(10f);
+            scannerUI.SetItemInfo(item.Item);
         }
     }
 }

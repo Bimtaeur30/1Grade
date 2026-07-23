@@ -1772,6 +1772,7 @@ MonoBehaviour:
   playerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
   scannerUI: {fileID: 901459931}
   scanDuration: 5
+  chargeDuration: 0.3
 --- !u!4 &1695021951
 Transform:
   m_ObjectHideFlags: 0
