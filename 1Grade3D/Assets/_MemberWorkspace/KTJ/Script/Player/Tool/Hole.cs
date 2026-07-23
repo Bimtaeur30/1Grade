@@ -1,10 +1,13 @@
 using System.Collections.Generic;
+using GameLib.EventChannelSystem;
 using UnityEngine;
 
 public sealed class Hole : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform rotatingObject;
+    [SerializeField] private FrameTraceEffect frameTraceEffect;
+    [SerializeField] private EventChannelSO turnChannel;
 
     [Header("Rotation")]
     [SerializeField] private float openedXAngle = -40f;
@@ -14,6 +17,7 @@ public sealed class Hole : MonoBehaviour
     private readonly Dictionary<GameObject, int> detectedPlayers = new();
     private Vector3 baseEulerAngles;
     private float targetXAngle;
+    private bool hasStartedFrameTrace;
 
     private void Awake()
     {
@@ -45,6 +49,13 @@ public sealed class Hole : MonoBehaviour
             rotatingObject.localRotation,
             targetRotation,
             rotationSpeed * Time.deltaTime);
+
+        if (detectedPlayers.Count > 0 &&
+            !hasStartedFrameTrace &&
+            Quaternion.Angle(rotatingObject.localRotation, targetRotation) <= 0.1f)
+        {
+            StartFrameTrace();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -83,6 +94,7 @@ public sealed class Hole : MonoBehaviour
         if (detectedPlayers.Count == 0)
         {
             targetXAngle = closedXAngle;
+            ResetFrameTrace();
         }
     }
 
@@ -90,6 +102,45 @@ public sealed class Hole : MonoBehaviour
     {
         detectedPlayers.Clear();
         targetXAngle = closedXAngle;
+        ResetFrameTrace();
+    }
+
+    private void StartFrameTrace()
+    {
+        if (frameTraceEffect == null)
+        {
+            Debug.LogError("Hole: Frame Trace Effect가 지정되지 않았습니다.", this);
+            return;
+        }
+
+        hasStartedFrameTrace = true;
+        frameTraceEffect.Play(HandleFrameTraceCompleted);
+    }
+
+    private void HandleFrameTraceCompleted()
+    {
+        if (!hasStartedFrameTrace || detectedPlayers.Count == 0)
+        {
+            return;
+        }
+
+        if (turnChannel == null)
+        {
+            Debug.LogError("Hole: Turn Channel이 지정되지 않았습니다.", this);
+            return;
+        }
+
+        turnChannel.RaiseEvent(TurnEvents.TurnEndEvent);
+    }
+
+    private void ResetFrameTrace()
+    {
+        hasStartedFrameTrace = false;
+
+        if (frameTraceEffect != null)
+        {
+            frameTraceEffect.ResetEffect();
+        }
     }
 
     private void SetRotationImmediately(float xAngle)
