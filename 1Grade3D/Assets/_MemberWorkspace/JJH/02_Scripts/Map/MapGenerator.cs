@@ -7,6 +7,9 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 {
     public class MapGenerator : MonoBehaviour
     {
+        [Header("Spawn")]
+        [SerializeField] private Transform spawnPoint;
+
         [Header("Map Size")]
         [SerializeField] private int width = 10;
         [SerializeField] private int height = 10;
@@ -43,14 +46,21 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             }
 
             tiles = new GroundTile[width, height];
+
+            float offsetX = (width - 1) * 0.5f;
+            float offsetZ = (height - 1) * 0.5f;
+
             for (int x = 0; x < width; x++)
             {
                 for (int z = 0; z < height; z++)
                 {
                     GroundTile tile = poolManager.Pop<GroundTile>(groundTilePool);
                     tile.transform.SetParent(transform);
-                    tile.transform.SetPositionAndRotation(new Vector3(x, 0, z),
-                                                                                  groundTilePool.prefab.transform.rotation);
+
+                    Vector3 position = spawnPoint.position + new Vector3(x - offsetX, 0f, z - offsetZ);
+
+                    tile.transform.SetPositionAndRotation(position, groundTilePool.prefab.transform.rotation);
+
                     tile.Initialize(z * width + x, false);
                     tiles[x, z] = tile;
                 }
