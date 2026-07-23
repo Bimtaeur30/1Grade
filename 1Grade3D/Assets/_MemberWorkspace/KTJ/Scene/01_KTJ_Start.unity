@@ -2478,6 +2478,7 @@ MonoBehaviour:
   PlayerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
   <MaxWeight>k__BackingField: 50
   <RunSpeed>k__BackingField: 10
+  <ScanCooltime>k__BackingField: 0
 --- !u!1 &1062213493
 GameObject:
   m_ObjectHideFlags: 0
@@ -9167,7 +9168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AgentMover
   playerInput: {fileID: 11400000, guid: f766f4eb3cf094142bc54b0b7118639c, type: 2}
-  playerStat: {fileID: 0}
+  playerStat: {fileID: 984081299}
   moveSpeed: 2
   bodySpriteRenderer: {fileID: 1734670468}
   directionRotationTargets:
