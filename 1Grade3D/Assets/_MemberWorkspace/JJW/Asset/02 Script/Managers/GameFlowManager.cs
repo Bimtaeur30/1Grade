@@ -30,14 +30,14 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
             if (CurrentState == GameState.Exploring)
             {
                 _timer -= Time.deltaTime;
-                if (_timer <= 0f) EndExploring();
+                if (_timer <= 0f) EndTurn();
             }
         }
 
-        public void EndExploring() // 타이머 안끝나도 상점갈수 있으니까 그냥 퍼블릭으로 둠 ㅇㅇ
+        public void EndTurn() //타이머 안끝나도 상점갈수 있으니까 그냥 퍼블릭으로 둠 ㅇㅇ
         {
             CurrentState = GameState.Shopping;
-            eventChannel.RaiseEvent(new ExploreEndEvent());
+            eventChannel.RaiseEvent(new TurnEndEvent());
         }
 
         public void StartStorm()
@@ -51,14 +51,14 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
             CurrentState = GameState.Exploring;
             eventChannel.RaiseEvent(new StormEndEvent());
             GameData.Instance.CurrentTurnLevel++;
-            StartExploring();
+            StartTurn();
         }
 
-        private void StartExploring()
+        private void StartTurn()
         {
             CurrentState = GameState.Exploring;
             _timer = exploreTimeLimit;
-            eventChannel.RaiseEvent(new ExploreStartEvent());
+            eventChannel.RaiseEvent(new TurnStartEvent());
         }
     }
 }
