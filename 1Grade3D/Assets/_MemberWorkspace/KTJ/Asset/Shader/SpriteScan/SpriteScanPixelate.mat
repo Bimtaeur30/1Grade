@@ -29,10 +29,14 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _OutlineMultiplierX: 0.002
+    - _OutlineMultiplierY: 0.002
+    - _OutlineThickness: 0
     - _ScanProgress: 1
     - _StartPixelCount: 3
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _OutlineColor: {r: 1, g: 0.61373776, b: 0, a: 1}
     - _SpritePixelSize: {r: 256, g: 256, b: 0, a: 0}
     - _SpriteUVRect: {r: 0, g: 0, b: 1, a: 1}
   m_BuildTextureStacks: []

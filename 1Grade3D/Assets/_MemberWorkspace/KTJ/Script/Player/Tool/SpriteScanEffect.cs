@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,6 +19,7 @@ public sealed class SpriteScanEffect : MonoBehaviour
 
     private MaterialPropertyBlock propertyBlock;
     private Coroutine scanCoroutine;
+    private Action scanCompleted;
 
     private void Awake()
     {
@@ -43,16 +45,24 @@ public sealed class SpriteScanEffect : MonoBehaviour
             StopCoroutine(scanCoroutine);
             scanCoroutine = null;
         }
+
+        scanCompleted = null;
     }
 
     [ContextMenu("Play Scan")]
     public void PlayScan()
+    {
+        PlayScan(null);
+    }
+
+    public void PlayScan(Action onCompleted)
     {
         if (scanCoroutine != null)
         {
             StopCoroutine(scanCoroutine);
         }
 
+        scanCompleted = onCompleted;
         scanCoroutine = StartCoroutine(ScanRoutine());
     }
 
@@ -65,6 +75,7 @@ public sealed class SpriteScanEffect : MonoBehaviour
             scanCoroutine = null;
         }
 
+        scanCompleted = null;
         SetProgress(1f);
     }
 
@@ -75,7 +86,7 @@ public sealed class SpriteScanEffect : MonoBehaviour
 
         while (elapsedTime < restoreDuration)
         {
-            elapsedTime += Time.deltaTime;
+            elapsedTime += Time.unscaledDeltaTime;
             float normalizedTime = Mathf.Clamp01(elapsedTime / restoreDuration);
             SetProgress(restoreCurve.Evaluate(normalizedTime));
             yield return null;
@@ -83,6 +94,10 @@ public sealed class SpriteScanEffect : MonoBehaviour
 
         SetProgress(1f);
         scanCoroutine = null;
+
+        Action completed = scanCompleted;
+        scanCompleted = null;
+        completed?.Invoke();
     }
 
     private void SetProgress(float progress)
