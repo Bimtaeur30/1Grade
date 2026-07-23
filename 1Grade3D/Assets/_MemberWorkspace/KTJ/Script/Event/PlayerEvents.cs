@@ -14,9 +14,11 @@ public static class PlayerEvents
 public class ItemEquipEvent : GameEvent
 {
     public ItemSO Item { get; private set; }
-    public ItemEquipEvent Init(ItemSO item)
+    public ScalePlateEnum ScalePlateEnum { get; private set; }
+    public ItemEquipEvent Init(ItemSO item, ScalePlateEnum scalePlateEnum)
     {
         Item = item;
+        ScalePlateEnum = scalePlateEnum;
         return this;
     }
 }
