@@ -49,5 +49,17 @@ namespace _MemberWorkspace.JJW.Asset._02_Script
         {
             GameData.Instance.CurrentMoney-=100;
         }
+
+        [ContextMenu("GOTOMainMenu")]
+        public void ChangeSceneMainMenu()
+        {
+            SceneFlowManager.Instance.GoToScene(SceneType.MainMenu);
+        }
+
+        [ContextMenu("GOTOInGameScene")]
+        public void ChangeSceneInGameMenu()
+        {
+            SceneFlowManager.Instance.GoToScene(SceneType.InGame);
+        }
     }
 }
