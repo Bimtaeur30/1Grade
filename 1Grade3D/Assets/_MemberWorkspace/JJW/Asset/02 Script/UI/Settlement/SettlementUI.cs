@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _MemberWorkspace.JJW.Asset._02_Script.Events;
 using _MemberWorkspace.JJW.Asset._02_Script.Item;
+using _MemberWorkspace.JJW.Asset._02_Script.UIUtility;
 using DG.Tweening;
 using GameLib.EventChannelSystem;
 using TMPro;
@@ -21,10 +22,6 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
         [SerializeField] private float fadeDuration = 1f;
         [SerializeField] private float countUpDuration = 0.3f;
         [SerializeField] private float itemRevealInterval = 0.3f; 
-        [SerializeField] private float charInterval = 0.05f;
-        
-        //임시임시임시임시임시임시임시임시임시임시
-        [SerializeField] private int monthlyRent = 100;
         
         private int _currentMoney;
         private Tween _moneyTween;
@@ -87,10 +84,6 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
                 CreateItemUI(item);
                 yield return new WaitForSeconds(itemRevealInterval);
             }
-
-            int finalMoney = _currentMoney - monthlyRent;
-            string finalText = $"{_currentMoney} - {monthlyRent} = {finalMoney}원";
-            _typeRoutine = StartCoroutine(TypeText(finalText));
         }
 
         private void CreateItemUI(ItemSO item)
@@ -111,23 +104,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
         private void AnimateMoneyCount(int from, int to)
         {
             _moneyTween?.Kill();
-
-            int display = from;
-            _moneyTween = DOTween.To(() => display, x =>
-            {
-                display = x;
-                totalMoneyText.text = display.ToString();
-            }, to, countUpDuration).SetEase(Ease.Linear);
-        }
-           
-        private IEnumerator TypeText(string fullText)
-        {
-            totalMoneyText.text = "";
-            foreach (char c in fullText)
-            {
-                totalMoneyText.text += c;
-                yield return new WaitForSeconds(charInterval);
-            }
+            _moneyTween = CountUpText.Animate(totalMoneyText, from, to, countUpDuration,"{0}원");
         }
     }
 }

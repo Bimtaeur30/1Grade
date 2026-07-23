@@ -49,13 +49,13 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
         private Vector2 _originalAnchoredPosition;
         private bool _positionCached;
 
-        //연출별로 따로 들고 있어야 호버(스케일)와 아이들(위치)이 서로 안 죽인다
+        
         private Tween _idleTween;
         private Tween _hoverTween;
         private Sequence _entranceSequence;
         private Sequence _exitSequence;
 
-        private bool _isHoverEnabled; //등장이 끝난 뒤부터 구매 전까지만 호버 반응
+        private bool _isHoverEnabled;
 
         public event Action<UpgradeCardUI> OnBought;
 
@@ -66,7 +66,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
 
         private void OnDisable()
         {
-            KillCardTweens(); //카드가 꺼진 채로 트윈이 살아 있으면 다음에 열 때 위치가 튄다
+            KillCardTweens(); 
         }
 
         private void CacheOriginalPosition()
@@ -186,32 +186,32 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
 
             _isHoverEnabled = false;
 
-            _rectTransform.anchoredPosition = _originalAnchoredPosition - new Vector2(0, distance);
             _rectTransform.localScale = Vector3.one * entranceStartScale;
             canvasGroup.alpha = 0;
 
+            Vector2 targetPos = _originalAnchoredPosition + new Vector2(0, distance);
+
             _entranceSequence = DOTween.Sequence();
-            _entranceSequence.Join(_rectTransform.DOAnchorPos(_originalAnchoredPosition, duration).SetEase(ease));
+            _entranceSequence.Join(_rectTransform.DOAnchorPos(targetPos, duration).SetEase(ease));
             _entranceSequence.Join(_rectTransform.DOScale(1f, duration).SetEase(Ease.OutBack));
             _entranceSequence.Join(canvasGroup.DOFade(1, duration));
             _entranceSequence.OnComplete(() =>
             {
                 _entranceSequence = null;
                 _isHoverEnabled = true;
-                StartIdleFloating(); //등장이 완전히 끝난 뒤에 둥둥 시작
+                StartIdleFloating(targetPos); 
             });
         }
 
-        private void StartIdleFloating()
+        private void StartIdleFloating(Vector2 basePosition)
         {
             _idleTween?.Kill();
 
-            //등장 트윈이 끝난 직후라 기준 위치에 정확히 서 있다. 여기서부터 위로만 왕복시킨다.
             _idleTween = _rectTransform
-                .DOAnchorPosY(_originalAnchoredPosition.y + idleFloatDistance, idleFloatDuration)
+                .DOAnchorPosY(basePosition.y + idleFloatDistance, idleFloatDuration)
                 .SetEase(Ease.InOutSine)
                 .SetLoops(-1, LoopType.Yoyo)
-                .SetDelay(UnityEngine.Random.Range(0f, idleFloatDuration)); //카드끼리 위상 어긋나게
+                .SetDelay(UnityEngine.Random.Range(0f, idleFloatDuration));
         }
 
         public void PlayUnselectedFadeOut(float duration)
@@ -232,11 +232,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
 
             _isHoverEnabled = false;
 
-            //아이들로 떠 있던 만큼 어긋나 있으니 기준 위치에서 시작시킨다
-            _rectTransform.anchoredPosition = _originalAnchoredPosition;
-
             _exitSequence = DOTween.Sequence();
-            //눌렸다 튀어나오는 펀치 → 살짝 커졌다가 → 작아지며 아래로 사라짐
             _exitSequence.Append(_rectTransform.DOPunchScale(Vector3.one * punchScale, punchDuration, 6, 0.8f));
             _exitSequence.Append(_rectTransform.DOScale(exitPopScale, exitPopDuration).SetEase(Ease.OutQuad));
             _exitSequence.Append(_rectTransform.DOScale(0f, dropDuration).SetEase(Ease.InBack));
@@ -274,7 +270,6 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
             _entranceSequence = null;
             _exitSequence = null;
 
-            //위에서 참조를 놓친 트윈까지 확실히 정리
             _rectTransform.DOKill();
             canvasGroup.DOKill();
         }

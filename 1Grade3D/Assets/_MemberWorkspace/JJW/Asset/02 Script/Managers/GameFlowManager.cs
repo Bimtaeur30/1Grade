@@ -50,7 +50,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         {
             CurrentState = GameState.Exploring;
             eventChannel.RaiseEvent(new StormEndEvent());
-            GameData.Instance.CurrentLevel++;
+            GameData.Instance.CurrentTurnLevel++;
             StartExploring();
         }
 
