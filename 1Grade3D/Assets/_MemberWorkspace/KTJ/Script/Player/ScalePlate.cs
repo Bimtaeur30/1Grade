@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ScalePlate : MonoBehaviour
 {
-    [field:SerializeField] public ScalePlateEnum ScalePlateEnum { get; private set; }
+    [field: SerializeField] public ScalePlateEnum ScalePlateEnum { get; private set; }
     [SerializeField] private ScaleItem ItemPrefab;
     [SerializeField] private Transform ItemPrefabParent;
 

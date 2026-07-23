@@ -167,7 +167,9 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             _currentScanEffect.PlayScan(() =>
             {
                 if (_isScanning && _currentItem == scanningItem)
+                {
                     scannerUI.SetItemInfo(scanningItem);
+                }
             });
         }
 
