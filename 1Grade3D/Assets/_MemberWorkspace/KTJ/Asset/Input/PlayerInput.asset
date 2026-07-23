@@ -15,3 +15,6 @@ MonoBehaviour:
   itemLayer:
     serializedVersion: 2
     m_Bits: 64
+  scalePlateLayer:
+    serializedVersion: 2
+    m_Bits: 8

@@ -51,7 +51,7 @@ public class ScanCooltimeUpgradeEvent : GameEvent
 }
 public class ItemDigEvent : GameEvent
 {
-    public int GroundCeilNumber { get; private set; }
+    public int GroundCeilNumber { get; set; }
     public ItemDigEvent Init(int groundCeilNumber)
     {
         GroundCeilNumber = groundCeilNumber;
