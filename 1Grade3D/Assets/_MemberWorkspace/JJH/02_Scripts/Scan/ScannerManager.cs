@@ -23,6 +23,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         private float _nextScanTime;
 
         private GroundItem _currentItem;
+        private SpriteScanEffect _currentScanEffect;
 
         private void Awake()
         {
@@ -96,10 +97,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             _isScanning = false;
             _isCharging = false;
 
-            if (_currentItem != null)
-                _currentItem.SetOutline(0f);
-
-            _currentItem = null;
+            ClearCurrentHover();
 
             Time.timeScale = 1f;
 
@@ -136,11 +134,8 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             if (item == null)
             {
                 if (_currentItem != null)
-                {
-                    _currentItem.SetOutline(0f);
-                    _currentItem = null;
-                    scannerUI.HideItemInfo();
-                }
+                    ClearCurrentHover();
+
                 return;
             }
 
@@ -148,11 +143,40 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
                 return;
 
             if (_currentItem != null)
-                _currentItem.SetOutline(0f);
+                ClearCurrentHover();
 
             _currentItem = item;
             item.SetOutline(10f);
-            scannerUI.SetItemInfo(item);
+            scannerUI.HideItemInfo();
+
+            _currentScanEffect =
+                item.GetComponentInChildren<SpriteScanEffect>(true);
+
+            if (_currentScanEffect == null)
+            {
+                scannerUI.SetItemInfo(item);
+                return;
+            }
+
+            GroundItem scanningItem = item;
+            _currentScanEffect.PlayScan(() =>
+            {
+                if (_isScanning && _currentItem == scanningItem)
+                    scannerUI.SetItemInfo(scanningItem);
+            });
+        }
+
+        private void ClearCurrentHover()
+        {
+            if (_currentItem != null)
+                _currentItem.SetOutline(0f);
+
+            if (_currentScanEffect != null)
+                _currentScanEffect.ShowOriginal();
+
+            _currentScanEffect = null;
+            _currentItem = null;
+            scannerUI.HideItemInfo();
         }
     }
 }
