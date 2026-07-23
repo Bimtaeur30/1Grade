@@ -13,6 +13,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         [SerializeField] private ScanUICanvas itemInfoCanvas;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Image scannerGauge;
+        [SerializeField] private Slider coolTimeSlider;
 
         [SerializeField] private ItemInfoUI itemInfoUI;
 
@@ -86,6 +87,25 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             itemInfoCanvas.SetTarget(null);
             itemInfoUI.Hide();
         }
+
+        #region Slider
+
+        public void SetCoolTime(float value)
+        {
+            coolTimeSlider.value = Mathf.Clamp01(value);
+        }
+
+        public void ShowCoolTime()
+        {
+            coolTimeSlider.gameObject.SetActive(true);
+        }
+
+        public void HideCoolTime()
+        {
+            coolTimeSlider.gameObject.SetActive(false);
+        }
+
+        #endregion
 
         private IEnumerator PowerOnRoutine()
         {

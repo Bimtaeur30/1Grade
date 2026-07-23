@@ -2,7 +2,6 @@
 using GameLib.EventChannelSystem;
 using GGMLib.ObjectPool.Runtime;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace _MemberWorkspace.JJH._02_Scripts.Map
 {
@@ -29,16 +28,6 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         {
             _groundRenderer = GetComponent<MeshRenderer>();
             playerChannel.AddListener<ItemDigEvent>(ItemDig);
-        }
-
-        private void Update()
-        {
-            if (Keyboard.current.aKey.wasPressedThisFrame)
-            {
-                ItemDigEvent a = new ItemDigEvent();
-                a.GroundCeilNumber = GroundIndex;
-                ItemDig(a);
-            }
         }
 
         private void OnDestroy()
