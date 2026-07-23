@@ -12,6 +12,7 @@ public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
     public Action OnMousePerformed;
     public Action OnMouseCanceled;
     public Action OnScannerKeyPressed;
+    public Action OnScannerKeyReleased;
 
     public Vector2 MoveInput { get; private set; }
     public Vector2 MousePosition => mousePosition;
@@ -70,8 +71,11 @@ public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
 
     public void OnScanner(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
             OnScannerKeyPressed?.Invoke();
+
+        if (context.canceled)
+            OnScannerKeyReleased?.Invoke();
     }
 
     public GroundItem GetGroundItem()
