@@ -4,6 +4,7 @@ public sealed class PlayerStateMachine : MonoBehaviour
 {
     [SerializeField] private AgentMover agentMover;
     [SerializeField] private Animator animator;
+    [SerializeField] private ParticleSystem digParticle;
     [SerializeField, Min(0f)] private float animationTransitionDuration = 0.1f;
 
     public static readonly int IdleAnimationHash = Animator.StringToHash("IDLE");
@@ -19,6 +20,16 @@ public sealed class PlayerStateMachine : MonoBehaviour
 
     private void Awake()
     {
+        if (digParticle == null)
+        {
+            Transform digParticleTransform = transform.Find("Visual/Hand/DigParticle");
+
+            if (digParticleTransform != null)
+            {
+                digParticle = digParticleTransform.GetComponent<ParticleSystem>();
+            }
+        }
+
         IdleState = new PlayerIdleState(this);
         RunState = new PlayerRunState(this);
         DigState = new PlayerDigState(this);
@@ -66,5 +77,23 @@ public sealed class PlayerStateMachine : MonoBehaviour
     public void PlayAnimation(int animationHash)
     {
         animator.CrossFade(animationHash, animationTransitionDuration);
+    }
+
+    public void PlayDigParticle()
+    {
+        if (digParticle != null && !digParticle.isPlaying)
+        {
+            digParticle.Play(true);
+        }
+    }
+
+    public void StopDigParticle()
+    {
+        if (digParticle != null)
+        {
+            digParticle.Stop(
+                true,
+                ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
     }
 }

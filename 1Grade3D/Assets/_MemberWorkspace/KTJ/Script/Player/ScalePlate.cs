@@ -18,8 +18,8 @@ public class ScalePlate : MonoBehaviour
         ScaleItem scaleItem = Instantiate(ItemPrefab, ItemPrefabParent);
         scaleItem.Initialize(item);
         scaleItem.transform.localPosition = new Vector3(
-            Random.Range(-0.2f, 0.2f),
-            Random.Range(-0.2f, 0.2f),
+            Random.Range(-0.1f, 0.1f),
+            Random.Range(-0.1f, 0f),
             0f);
     }
 }
