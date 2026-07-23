@@ -9,6 +9,7 @@ public sealed class SpiralTransition : MonoBehaviour
 
     [SerializeField] private Image transitionImage;
     [SerializeField, Min(0.01f)] private float duration = 1f;
+    [SerializeField, Min(0.01f)] private float maxStepPerFrame = 0.05f;
     [SerializeField] private AnimationCurve animationCurve =
         AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
@@ -81,9 +82,12 @@ public sealed class SpiralTransition : MonoBehaviour
         float distance = Mathf.Abs(endProgress - startProgress);
         float adjustedDuration = Mathf.Max(0.01f, duration * distance);
 
+        SetProgress(startProgress);
+        yield return null;
+
         while (elapsedTime < adjustedDuration)
         {
-            elapsedTime += Time.unscaledDeltaTime;
+            elapsedTime += Mathf.Min(Time.unscaledDeltaTime, maxStepPerFrame);
             float normalizedTime = Mathf.Clamp01(elapsedTime / adjustedDuration);
             float curvedTime = animationCurve.Evaluate(normalizedTime);
             SetProgress(Mathf.Lerp(startProgress, endProgress, curvedTime));

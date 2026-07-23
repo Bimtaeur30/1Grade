@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using _MemberWorkspace.JJW.Asset._02_Script.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -19,6 +20,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         public static SceneFlowManager Instance { get; private set; }
         
         [SerializeField] private SceneEntry[] sceneEntries;
+        [SerializeField] private SceneTransitionEffect transitionEffect;
 
         public event Action<SceneType> OnSceneChangedStarted;
         public event Action<SceneType> OnSceneChanged;
@@ -46,6 +48,8 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
                 Debug.LogError("씬 이름이 없어ㅓㅓ");
                 return;
             }
+            if(_isTransitioning)
+                return;
             
             StartCoroutine(TransitionRoutine(sceneType, sceneName));
         }
@@ -55,7 +59,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
             _isTransitioning = true;
             OnSceneChangedStarted?.Invoke(sceneType);
             
-            yield return null;
+            yield return new WaitUntil(() => !transitionEffect.IsPlaying);
 
             AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
             while (!operation.isDone)
