@@ -1,13 +1,30 @@
+using _MemberWorkspace.JJH._02_Scripts.Map;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "PlayerInput", menuName = "KTJ/Input/Player Input")]
 public sealed class PlayerInputSO : ScriptableObject
 {
+    [SerializeField] private LayerMask itemLayer;
+
     public Vector2 MoveInput { get; private set; }
 
     private Controls controls;
     private int enableCount;
+
+    private Vector2 mousePosition;
+    private Camera mainCamera;
+
+    public Camera MainCamera
+    {
+        get
+        {
+            if (mainCamera == null)
+                mainCamera = Camera.main;
+
+            return mainCamera;
+        }
+    }
 
     public void EnableInput()
     {
@@ -21,6 +38,8 @@ public sealed class PlayerInputSO : ScriptableObject
         controls ??= new Controls();
         controls.Player.Move.performed += OnMove;
         controls.Player.Move.canceled += OnMove;
+        controls.Player.MousePos.performed += OnMousePos;
+        controls.Player.MousePos.canceled += OnMousePos;
         controls.Player.Enable();
     }
 
@@ -35,6 +54,8 @@ public sealed class PlayerInputSO : ScriptableObject
 
         controls.Player.Move.performed -= OnMove;
         controls.Player.Move.canceled -= OnMove;
+        controls.Player.MousePos.performed -= OnMousePos;
+        controls.Player.MousePos.canceled -= OnMousePos;
         controls.Player.Disable();
         MoveInput = Vector2.zero;
     }
@@ -66,5 +87,23 @@ public sealed class PlayerInputSO : ScriptableObject
     private void OnMove(InputAction.CallbackContext context)
     {
         MoveInput = context.ReadValue<Vector2>();
+    }
+
+    private void OnMousePos(InputAction.CallbackContext context)
+    {
+        mousePosition = context.ReadValue<Vector2>();
+    }
+
+    public GroundTile GetGroundTile()
+    {
+        Ray ray = MainCamera.ScreenPointToRay(mousePosition);
+
+        if (Physics.Raycast(ray, out RaycastHit hit, MainCamera.farClipPlane, itemLayer))
+        {
+            GroundTile tile = hit.collider.GetComponent<GroundTile>();
+            return tile;
+        }
+
+        return null;
     }
 }
