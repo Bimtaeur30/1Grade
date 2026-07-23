@@ -1,58 +1,85 @@
+using _MemberWorkspace.JJW.Asset._02_Script.Item;
+using GGMLib.ObjectPool.Runtime;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapGenerator : MonoBehaviour
+namespace _MemberWorkspace.JJH._02_Scripts.Map
 {
-    [Header("Map Size")]
-    [SerializeField] private int width = 10;
-    [SerializeField] private int height = 10;
-
-    [Header("Tile")]
-    [SerializeField] private GameObject floorPrefab;
-
-    [Header("Item")]
-    [SerializeField] private GameObject itemPrefab;
-    [SerializeField] private int minItemCount = 5;
-    [SerializeField] private int maxItemCount = 15;
-
-    private List<Vector2Int> emptyPositions = new List<Vector2Int>();
-
-    private void Start()
+    public class MapGenerator : MonoBehaviour
     {
-        GenerateMap();
-        SpawnItems();
-    }
+        [Header("Map Size")]
+        [SerializeField] private int width = 10;
+        [SerializeField] private int height = 10;
 
-    private void GenerateMap()
-    {
-        emptyPositions.Clear();
+        [Header("Item")]
+        [SerializeField] private List<ItemSO> itemList;
+        [SerializeField] private int minItemCount = 5;
+        [SerializeField] private int maxItemCount = 15;
 
-        for (int x = 0; x < width; x++)
+        [Header("Pooling")]
+        [SerializeField] private PoolManagerSO poolManager;
+        [SerializeField] private PoolItemSO groundTilePool;
+
+        private GroundTile[,] tiles;
+
+        private void Start()
         {
-            for (int y = 0; y < height; y++)
-            {
-                Instantiate(floorPrefab, new Vector3(x, 0, y), floorPrefab.transform.rotation, transform);
+            GenerateMap();
+            SpawnItems();
+        }
 
-                emptyPositions.Add(new Vector2Int(x, y));
+        private void GenerateMap()
+        {
+            if (tiles != null)
+            {
+                for (int x = 0; x < width; x++)
+                {
+                    for (int z = 0; z < height; z++)
+                    {
+                        if (tiles[x, z] != null)
+                            poolManager.Push(tiles[x, z]);
+                    }
+                }
+            }
+
+            tiles = new GroundTile[width, height];
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int z = 0; z < height; z++)
+                {
+                    GroundTile tile = poolManager.Pop<GroundTile>(groundTilePool);
+
+                    tile.transform.SetParent(transform);
+                    tile.transform.SetPositionAndRotation(new Vector3(x, 0, z),
+                                                                                  groundTilePool.prefab.transform.rotation);
+                    tile.InitItem(false);
+
+                    tiles[x, z] = tile;
+                }
             }
         }
-    }
 
-    private void SpawnItems()
-    {
-        int itemCount = Random.Range(minItemCount, maxItemCount + 1);
-
-        itemCount = Mathf.Min(itemCount, emptyPositions.Count);
-
-        for (int i = 0; i < itemCount; i++)
+        private void SpawnItems()
         {
-            int index = Random.Range(0, emptyPositions.Count);
+            int itemCount = Random.Range(minItemCount, maxItemCount + 1);
 
-            Vector2Int pos = emptyPositions[index];
+            int spawned = 0;
 
-            Instantiate(itemPrefab, new Vector3(pos.x, 0, pos.y), itemPrefab.transform.rotation, transform);
+            while (spawned < itemCount)
+            {
+                int x = Random.Range(0, width);
+                int z = Random.Range(0, height);
 
-            emptyPositions.RemoveAt(index);
+                if (tiles[x, z].HasItem)
+                    continue;
+
+                ItemSO item = itemList[Random.Range(0, itemList.Count)];
+
+                tiles[x, z].InitItem(true, item);
+
+                spawned++;
+            }
         }
     }
 }

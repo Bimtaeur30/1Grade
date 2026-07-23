@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Shader Graphs_StripePatterenShader
-  m_Shader: {fileID: -6465566751694194690, guid: 849aaa7fe54b9a743a0236d7ecb70721, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 1ca03da3c6cdd6c4fbc7f2637bbd30cb, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -40,10 +40,10 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 3
-    - _Speed: 0.5
+    - _Scale: 4.79
+    - _Speed: 0.66
     m_Colors:
-    - _MainColor: {r: 1, g: 0.7389859, b: 0.45597476, a: 1}
+    - _MainColor: {r: 1, g: 0.7389859, b: 0.4559747, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &7630488502377204163
