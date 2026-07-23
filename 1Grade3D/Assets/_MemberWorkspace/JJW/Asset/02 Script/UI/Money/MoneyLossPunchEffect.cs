@@ -20,12 +20,14 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Money
 
         private void OnEnable()
         {
-            GameData.Instance.OnMoneyValueChanged += HandleMoneyChanged;
+            if (GameData.Instance != null)
+                GameData.Instance.OnMoneyValueChanged += HandleMoneyChanged;
         }
 
         private void OnDisable()
         {
-            GameData.Instance.OnMoneyValueChanged -= HandleMoneyChanged;
+            if (GameData.Instance != null)
+                GameData.Instance.OnMoneyValueChanged -= HandleMoneyChanged;
         }
 
         private void HandleMoneyChanged(int before, int after)

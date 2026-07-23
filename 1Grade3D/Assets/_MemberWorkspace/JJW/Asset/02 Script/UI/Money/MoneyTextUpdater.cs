@@ -24,12 +24,14 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Money
 
         private void OnEnable()
         {
-            GameData.Instance.OnMoneyValueChanged += UpdateText;
+            if (GameData.Instance != null)//순서때매 한거 (인겜에서는 상관없긴한데 에러 보기 싫어) 
+                GameData.Instance.OnMoneyValueChanged += UpdateText;
         }
 
         private void OnDisable()
         {
-            GameData.Instance.OnMoneyValueChanged -= UpdateText;
+            if (GameData.Instance != null)
+                GameData.Instance.OnMoneyValueChanged -= UpdateText;
         }
 
         private void UpdateText(int before, int after)
