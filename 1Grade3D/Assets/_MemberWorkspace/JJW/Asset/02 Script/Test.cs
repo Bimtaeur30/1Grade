@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _MemberWorkspace.JJW.Asset._02_Script.Events;
 using _MemberWorkspace.JJW.Asset._02_Script.Item;
+using _MemberWorkspace.JJW.Asset._02_Script.Managers;
 using GameLib.EventChannelSystem;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,6 +19,16 @@ namespace _MemberWorkspace.JJW.Asset._02_Script
             {
                 RaiseTestSettlement();
             }
+
+            if (Keyboard.current.rKey.wasPressedThisFrame)
+            {
+                RaiseMoneyTest();
+            }
+
+            if (Keyboard.current.dKey.wasPressedThisFrame)
+            {
+                DownMoney();
+            }
         }
 
         public void RaiseTestSettlement()
@@ -28,6 +39,15 @@ namespace _MemberWorkspace.JJW.Asset._02_Script
             }
 
             eventChannel.RaiseEvent(new SettlementEvent(testItems));
+        }
+
+        private void RaiseMoneyTest()
+        {
+            GameData.Instance.CurrentMoney+=100;
+        }
+        private void DownMoney()
+        {
+            GameData.Instance.CurrentMoney-=100;
         }
     }
 }

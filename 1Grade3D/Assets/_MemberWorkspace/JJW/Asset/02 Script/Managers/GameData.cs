@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
 {
     public class GameData : MonoBehaviour
     {
+        [SerializeField] private int startMoneyAmount = 50;
         private static GameData _instance;
 
         //제일먼저 돌아야함
@@ -16,8 +18,18 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
             }
         }
 
-        public int CurrentLevel { get; set; } = 1;
-        public int CurrentMoney { get; set; } = 1000;
+        public int CurrentTurnLevel { get; set; } = 1; //현재 턴 레벨
+        public int CurrentMoney {
+            get=> startMoneyAmount;
+            set
+            {
+                if (value == startMoneyAmount) return;
+                OnMoneyValueChanged?.Invoke(startMoneyAmount,value);
+                startMoneyAmount = value;
+            }
+        }
+
+        public event Action<int,int> OnMoneyValueChanged;//before, after
         
         public int CurrentMaxWeightLevel { get; set; } = 1;
         public int CurrentRunSpeedLevel { get; set; } = 1;
