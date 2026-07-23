@@ -9,6 +9,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         [SerializeField] private PlayerInputSO playerInput;
         [SerializeField] private EventChannelSO playerChannel;
         [SerializeField] private ScannerUI scannerUI;
+        [SerializeField] private PlayerStat playerStat;
 
         [SerializeField] private float scanDuration = 5f;
         [SerializeField] private float chargeDuration = 0.3f;
@@ -23,11 +24,13 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         private void Awake()
         {
             playerInput.OnScannerKeyPressed += UseScanner;
+            //playerStat.ScanCooltimeChanged += ScanDurationChange;
         }
 
         private void OnDestroy()
         {
             playerInput.OnScannerKeyPressed -= UseScanner;
+            //playerStat.ScanCooltimeChanged += ScanDurationChange;
         }
 
         private void Update()
@@ -36,14 +39,26 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
                 return;
 
             if (_isCharging)
+            {
                 UpdateCharge();
+            }
             else
+            {
                 UpdateTimer();
+
+                if (!_isScanning)
+                    return;
+            }
 
             UpdateHover();
         }
 
-        public void UseScanner()
+        private void ScanDurationChange(int duration)
+        {
+            scanDuration = duration;
+        }
+
+        private void UseScanner()
         {
             playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(true));
 
@@ -119,7 +134,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
             _currentItem = item;
             item.SetOutline(10f);
-            scannerUI.SetItemInfo(item.Item);
+            scannerUI.SetItemInfo(item);
         }
     }
 }

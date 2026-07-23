@@ -128,3 +128,4 @@ MonoBehaviour:
   <PoolItem>k__BackingField: {fileID: 11400000, guid: 6ff75161670ef7c42aa9e066c73e0240, type: 2}
   poolManager: {fileID: 11400000, guid: b17c4ba487b81f642a923be629ce8c11, type: 2}
   groundPoolItem: {fileID: 11400000, guid: a9841447aad009b4483fb41ca3e83ef7, type: 2}
+  playerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
