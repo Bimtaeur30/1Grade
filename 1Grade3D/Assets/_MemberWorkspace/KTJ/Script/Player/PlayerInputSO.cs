@@ -1,16 +1,20 @@
 using _MemberWorkspace.JJH._02_Scripts.Map;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [CreateAssetMenu(fileName = "PlayerInput", menuName = "KTJ/Input/Player Input")]
-public sealed class PlayerInputSO : ScriptableObject
+public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
 {
     [SerializeField] private LayerMask itemLayer;
 
-    public Vector2 MoveInput { get; private set; }
+    public Action OnMouseClicked;
+    public Action OnScannerKeyPressed;
 
-    private Controls controls;
-    private int enableCount;
+    public Vector2 MoveInput { get; private set; }
+    public Vector2 MousePosition => mousePosition;
+
+    private Controls _control;
 
     private Vector2 mousePosition;
     private Camera mainCamera;
@@ -26,84 +30,55 @@ public sealed class PlayerInputSO : ScriptableObject
         }
     }
 
-    public void EnableInput()
+    private void OnEnable()
     {
-        enableCount++;
-
-        if (enableCount > 1)
+        if (_control == null)
         {
-            return;
+            _control = new Controls();
+            _control.Player.SetCallbacks(this);
         }
 
-        controls ??= new Controls();
-        controls.Player.Move.performed += OnMove;
-        controls.Player.Move.canceled += OnMove;
-        controls.Player.MousePos.performed += OnMousePos;
-        controls.Player.MousePos.canceled += OnMousePos;
-        controls.Player.Enable();
-    }
-
-    public void DisableInput()
-    {
-        enableCount = Mathf.Max(0, enableCount - 1);
-
-        if (enableCount > 0 || controls == null)
-        {
-            return;
-        }
-
-        controls.Player.Move.performed -= OnMove;
-        controls.Player.Move.canceled -= OnMove;
-        controls.Player.MousePos.performed -= OnMousePos;
-        controls.Player.MousePos.canceled -= OnMousePos;
-        controls.Player.Disable();
-        MoveInput = Vector2.zero;
+        _control.Player.Enable();
     }
 
     private void OnDisable()
     {
-        enableCount = 0;
-
-        if (controls == null)
-        {
-            return;
-        }
-
-        controls.Player.Move.performed -= OnMove;
-        controls.Player.Move.canceled -= OnMove;
-        if (Application.isPlaying)
-        {
-            controls.Dispose();
-        }
-        else if (controls.asset != null)
-        {
-            DestroyImmediate(controls.asset);
-        }
-
-        controls = null;
-        MoveInput = Vector2.zero;
+        if (_control != null)
+            _control.Player.Disable();
     }
 
-    private void OnMove(InputAction.CallbackContext context)
+    public void OnMove(InputAction.CallbackContext context)
     {
         MoveInput = context.ReadValue<Vector2>();
     }
 
-    private void OnMousePos(InputAction.CallbackContext context)
+    public void OnMousePos(InputAction.CallbackContext context)
     {
         mousePosition = context.ReadValue<Vector2>();
     }
 
-    public GroundTile GetGroundTile()
+    public GroundItem GetGroundItem()
     {
         Ray ray = MainCamera.ScreenPointToRay(mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, MainCamera.farClipPlane, itemLayer))
         {
-            GroundTile tile = hit.collider.GetComponent<GroundTile>();
+            GroundItem tile = hit.collider.GetComponentInParent<GroundItem>();
             return tile;
         }
 
         return null;
+    }
+
+    public void OnMouseClick(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnMouseClicked?.Invoke();
+    }
+
+    public void OnScanner(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+            OnScannerKeyPressed?.Invoke();
     }
 }

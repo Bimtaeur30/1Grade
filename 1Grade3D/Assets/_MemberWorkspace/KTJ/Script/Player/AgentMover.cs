@@ -38,7 +38,6 @@ public sealed class AgentMover : MonoBehaviour
 
     private void OnEnable()
     {
-        playerInput?.EnableInput();
 
         if (playerStat != null)
         {
@@ -49,7 +48,6 @@ public sealed class AgentMover : MonoBehaviour
 
     private void OnDisable()
     {
-        playerInput?.DisableInput();
 
         if (playerStat != null)
         {
