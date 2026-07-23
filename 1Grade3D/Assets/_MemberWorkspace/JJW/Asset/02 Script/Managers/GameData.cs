@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace _MemberWorkspace.JJW.Asset._02_Script
+namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
 {
     public class GameData : MonoBehaviour
     {

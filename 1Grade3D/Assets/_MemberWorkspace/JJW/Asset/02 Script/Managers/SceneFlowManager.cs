@@ -1,9 +1,8 @@
 using System;
-using System.Net.NetworkInformation;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _MemberWorkspace.JJW.Asset._02_Script
+namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
 {
     public enum SceneType { MainMenu, InGame, GameClear }
 
