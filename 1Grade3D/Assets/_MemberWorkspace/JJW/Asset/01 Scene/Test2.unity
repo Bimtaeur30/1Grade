@@ -435,6 +435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9520f643a4e94a4da841a4c3cb72252e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.UI.SceneTransitionEffect
+  canvasSortingOrder: 1000
 --- !u!1 &1315837435
 GameObject:
   m_ObjectHideFlags: 0
@@ -464,7 +465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad95a611dce0464cb93319577c963548, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.Test
-  eventChannel: {fileID: 11400000, guid: 57f89659ffd948d46a997d7478344e0f, type: 2}
+  eventChannel: {fileID: 11400000, guid: c2f3071130ccdbd41b36cf31f73679c4, type: 2}
   testItems:
   - {fileID: 11400000, guid: 61f1aeaab9268be408e3235faf5eafd5, type: 2}
   - {fileID: 11400000, guid: 117d131e72748074eb5e640a59f763be, type: 2}
