@@ -1,23 +1,28 @@
 ﻿using _MemberWorkspace.JJH._02_Scripts.Map;
+using GameLib.EventChannelSystem;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace _MemberWorkspace.JJH._02_Scripts.Scan
 {
     public class ScannerManager : MonoBehaviour
     {
         [SerializeField] private PlayerInputSO playerInput;
+        [SerializeField] private EventChannelSO playerChannel;
         [SerializeField] private ScannerUI scannerUI;
 
-        [SerializeField] private float scanDuration = 10f;
+        [SerializeField] private float scanDuration = 5f;
 
-        public bool IsScanning { get; private set; }
-
+        private bool _isScanning;
         private float _remainTime;
         private GroundTile _currentTile;
 
         private void Update()
         {
-            if (!IsScanning)
+            if (Keyboard.current.aKey.wasPressedThisFrame)
+                UseScanner();
+
+            if (!_isScanning)
                 return;
 
             UpdateTimer();
@@ -26,7 +31,9 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
         public void UseScanner()
         {
-            IsScanning = true;
+            playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(true));
+
+            _isScanning = true;
             _remainTime = scanDuration;
 
             scannerUI.Open();
@@ -35,7 +42,9 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
         private void StopScanner()
         {
-            IsScanning = false;
+            playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(false));
+
+            _isScanning = false;
             _currentTile = null;
 
             scannerUI.HideItemInfo();
@@ -72,7 +81,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
             _currentTile = tile;
 
-            scannerUI.ShowItem(tile.Item);
+            scannerUI.SetItemInfo(tile.Item);
         }
     }
 }
