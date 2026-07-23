@@ -73,7 +73,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
                 _groundItem = poolItem;
                 poolItem.transform.position = transform.position + new Vector3(0, 0.5f, 0);
                 poolItem.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-                poolItem.InitItem(item, _groundRenderer.bounds.size);
+                poolItem.InitItem(item);
             }
         }
     }

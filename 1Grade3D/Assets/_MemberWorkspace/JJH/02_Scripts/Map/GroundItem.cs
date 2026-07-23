@@ -78,15 +78,14 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             _isPopUped = false;
         }
 
-        public void InitItem(ItemSO item, Vector3 groundSize)
+        public void InitItem(ItemSO item)
         {
             Item = item;
             _spriteRenderer.sprite = item.Icon;
 
+            transform.localScale = Vector3.one * item.Scale;
+
             Bounds spriteBounds = _spriteRenderer.sprite.bounds;
-            Vector2 spriteSize = spriteBounds.size;
-            transform.localScale = new Vector3(groundSize.x / spriteSize.x,
-                                                                    groundSize.z / spriteSize.y, 1f);
             _boxCollider.size = new Vector3(spriteBounds.size.x, spriteBounds.size.y, _boxCollider.size.z);
             _boxCollider.center = new Vector3(spriteBounds.center.x, spriteBounds.center.y, _boxCollider.center.z);
         }

@@ -13,24 +13,29 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
         [SerializeField] private float scanDuration = 5f;
         [SerializeField] private float chargeDuration = 0.3f;
+        [SerializeField] private float scanCoolTime = 5f;
 
         private bool _isScanning;
         private bool _isCharging;
+
         private float _remainTime;
         private float _chargeTime;
+        private float _nextScanTime;
 
         private GroundItem _currentItem;
 
         private void Awake()
         {
             playerInput.OnScannerKeyPressed += UseScanner;
-            //playerStat.ScanCooltimeChanged += ScanDurationChange;
+            playerInput.OnScannerKeyReleased += StopScanner;
+            playerStat.ScanCooltimeChanged += ScanCoolTimeChange;
         }
 
         private void OnDestroy()
         {
             playerInput.OnScannerKeyPressed -= UseScanner;
-            //playerStat.ScanCooltimeChanged += ScanDurationChange;
+            playerInput.OnScannerKeyReleased -= StopScanner;
+            playerStat.ScanCooltimeChanged -= ScanCoolTimeChange;
         }
 
         private void Update()
@@ -53,13 +58,19 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             UpdateHover();
         }
 
-        private void ScanDurationChange(int duration)
+        private void ScanCoolTimeChange(int coolTime)
         {
-            scanDuration = duration;
+            scanCoolTime = coolTime;
         }
 
         private void UseScanner()
         {
+            if (_isScanning)
+                return;
+
+            if (Time.unscaledTime < _nextScanTime)
+                return;
+
             playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(true));
 
             _isScanning = true;
@@ -75,12 +86,19 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
         private void StopScanner()
         {
+            if (!_isScanning)
+                return;
+
+            _nextScanTime = Time.unscaledTime + scanCoolTime;
+
             playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(false));
 
             _isScanning = false;
             _isCharging = false;
+
             if (_currentItem != null)
                 _currentItem.SetOutline(0f);
+
             _currentItem = null;
 
             Time.timeScale = 1f;
