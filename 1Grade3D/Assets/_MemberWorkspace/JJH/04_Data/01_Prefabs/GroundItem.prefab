@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3475672971193211975}
   - component: {fileID: 1731359844329840083}
   - component: {fileID: -3871594311829565613}
+  - component: {fileID: -1236864784165523070}
   m_Layer: 6
   m_Name: GroundItem
   m_TagString: Untagged
@@ -60,7 +61,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c08e6608e4a7db945b659466d95686a4, type: 2}
+  - {fileID: 2100000, guid: c125f7bfded248a3be050d8ea862b2a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -130,3 +131,62 @@ MonoBehaviour:
   playerInput: {fileID: 11400000, guid: f766f4eb3cf094142bc54b0b7118639c, type: 2}
   playerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
   poolManager: {fileID: 11400000, guid: b17c4ba487b81f642a923be629ce8c11, type: 2}
+--- !u!114 &-1236864784165523070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8054091757567903582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0e722eee3032cd43a19a994a13fb0ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteScanEffect
+  targetRenderers:
+  - {fileID: 3475672971193211975}
+  startPixelCount: 4
+  restoreDuration: 2.5
+  restoreCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.4167858
+      value: 0.094285965
+      inSlope: 0.60556626
+      outSlope: 0.60556626
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.6699485
+      value: 0.3437757
+      inSlope: 1.4219126
+      outSlope: 1.4219126
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  playOnEnable: 1
