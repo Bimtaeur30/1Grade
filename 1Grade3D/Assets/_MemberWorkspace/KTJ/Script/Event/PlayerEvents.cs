@@ -1,6 +1,5 @@
 using _MemberWorkspace.JJW.Asset._02_Script.Item;
 using GameLib.EventChannelSystem;
-using UnityEngine;
 
 public static class PlayerEvents
 {
@@ -9,6 +8,7 @@ public static class PlayerEvents
     public static readonly MaxWeightUpgradeEvent MaxWeightUpgradeEvent = new();
     public static readonly ScanCooltimeUpgradeEvent ScanCooltimeUpgradeEvent = new();
     public static readonly ItemDigEvent ItemDigEvent = new();
+    public static readonly ScannerEvent ScannerEvent = new();
 }
 
 public class ItemEquipEvent : GameEvent
@@ -53,6 +53,17 @@ public class ItemDigEvent : GameEvent
     public ItemDigEvent Init(int groundCeilNumber)
     {
         GroundCeilNumber = groundCeilNumber;
+        return this;
+    }
+}
+
+public class ScannerEvent : GameEvent
+{
+    public bool IsStart { get; private set; }
+
+    public ScannerEvent Init(bool isStart)
+    {
+        IsStart = isStart;
         return this;
     }
 }
