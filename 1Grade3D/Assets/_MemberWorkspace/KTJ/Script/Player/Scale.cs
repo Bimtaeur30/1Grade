@@ -16,9 +16,21 @@ public class Scale : MonoBehaviour
     [SerializeField] private ScalePlate LeftScalePlate;
     [SerializeField] private ScalePlate RightScalePlate;
 
+    [Header("Scale Tilt")]
+    [SerializeField] private Transform ScaleObject;
+    [SerializeField, Range(0f, 45f)] private float MaxTiltAngle = 25f;
+    [SerializeField, Min(0.01f)] private float TiltSmoothTime = 0.3f;
+
+    public float LeftWeight { get; private set; }
+    public float RightWeight { get; private set; }
+
     private ItemSO currentItem;
     private bool isSliderInitialized;
     private bool hasReachedMaxWeight;
+    private Vector3 initialScaleEulerAngles;
+    private float currentTiltAngle;
+    private float targetTiltAngle;
+    private float tiltVelocity;
 
     private void Awake()
     {
@@ -26,6 +38,30 @@ public class Scale : MonoBehaviour
         {
             PlayerStat = GetComponentInChildren<PlayerStat>(true);
         }
+
+        if (ScaleObject != null)
+        {
+            initialScaleEulerAngles = ScaleObject.localEulerAngles;
+        }
+    }
+
+    private void Update()
+    {
+        if (ScaleObject == null)
+        {
+            return;
+        }
+
+        currentTiltAngle = Mathf.SmoothDampAngle(
+            currentTiltAngle,
+            targetTiltAngle,
+            ref tiltVelocity,
+            TiltSmoothTime);
+
+        ScaleObject.localRotation = Quaternion.Euler(
+            initialScaleEulerAngles.x,
+            initialScaleEulerAngles.y,
+            initialScaleEulerAngles.z + currentTiltAngle);
     }
 
     private void OnEnable()
@@ -75,7 +111,49 @@ public class Scale : MonoBehaviour
         }
 
         targetPlate.AddItem(currentItem);
+        AddPlateWeight(@event.ScalePlateEnum, currentItem.Weight);
         AddItemWeight(currentItem.Weight);
+    }
+
+    private void AddPlateWeight(ScalePlateEnum plate, float weight)
+    {
+        if (plate == ScalePlateEnum.Left)
+        {
+            LeftWeight += weight;
+        }
+        else
+        {
+            RightWeight += weight;
+        }
+
+        UpdateTargetTiltAngle();
+    }
+
+    private void UpdateTargetTiltAngle()
+    {
+        if (Mathf.Approximately(LeftWeight, RightWeight))
+        {
+            targetTiltAngle = 0f;
+            return;
+        }
+
+        float heavierWeight = Mathf.Max(LeftWeight, RightWeight);
+        float lighterWeight = Mathf.Min(LeftWeight, RightWeight);
+        float tiltRatio;
+
+        if (lighterWeight <= 0f)
+        {
+            tiltRatio = 1f;
+        }
+        else
+        {
+            float weightRatio = heavierWeight / lighterWeight;
+            tiltRatio = Mathf.InverseLerp(1f, 2f, weightRatio);
+        }
+
+        float smoothTiltRatio = Mathf.SmoothStep(0f, 1f, tiltRatio);
+        float direction = LeftWeight > RightWeight ? 1f : -1f;
+        targetTiltAngle = direction * MaxTiltAngle * smoothTiltRatio;
     }
 
     private void HandleMaxWeightChanged(int maxWeight)

@@ -6,10 +6,12 @@ public sealed class PlayerDigState : PlayerState
     {
         StateMachine.AgentMover.SetMovementEnabled(false);
         StateMachine.PlayAnimation(PlayerStateMachine.DigAnimationHash);
+        StateMachine.PlayDigParticle();
     }
 
     public override void Exit()
     {
+        StateMachine.StopDigParticle();
         StateMachine.AgentMover.SetMovementEnabled(true);
     }
 }

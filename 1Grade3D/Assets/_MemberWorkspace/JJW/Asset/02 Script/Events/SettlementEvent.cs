@@ -6,7 +6,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Events
 {
     public class SettlementEvent : GameEvent
     {
-        public List<ItemSO> items;
+        public readonly List<ItemSO> items;
 
         public SettlementEvent(List<ItemSO> items)
         {

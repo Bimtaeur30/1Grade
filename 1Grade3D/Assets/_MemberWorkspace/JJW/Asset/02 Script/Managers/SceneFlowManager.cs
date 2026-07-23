@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -18,10 +19,13 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         public static SceneFlowManager Instance { get; private set; }
         
         [SerializeField] private SceneEntry[] sceneEntries;
-        
+
+        public event Action<SceneType> OnSceneChangedStarted;
         public event Action<SceneType> OnSceneChanged;
 
         public SceneType CurrentScene {get; private set; } = SceneType.MainMenu;
+        
+        private bool _isTransitioning;
 
         private void Awake()
         {
@@ -36,15 +40,32 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         public void GoToScene(SceneType sceneType)
         {
             string sceneName = GetSceneName(sceneType);
+            
             if (string.IsNullOrEmpty(sceneName))
             {
                 Debug.LogError("씬 이름이 없어ㅓㅓ");
                 return;
             }
             
-            SceneManager.LoadScene(sceneName);
+            StartCoroutine(TransitionRoutine(sceneType, sceneName));
+        }
+
+        private IEnumerator TransitionRoutine(SceneType sceneType, string sceneName)
+        {
+            _isTransitioning = true;
+            OnSceneChangedStarted?.Invoke(sceneType);
+            
+            yield return null;
+
+            AsyncOperation operation = SceneManager.LoadSceneAsync(sceneName);
+            while (!operation.isDone)
+            {
+                yield return null;
+            }
+            
             CurrentScene = sceneType;
             OnSceneChanged?.Invoke(sceneType);
+            _isTransitioning = false;
         }
 
         private string GetSceneName(SceneType sceneType)

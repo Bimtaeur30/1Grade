@@ -4,18 +4,32 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
 {
     public class GameData : MonoBehaviour
     {
-        public static GameData Instance { get; private set; }
+        private static GameData _instance;
+
+        //제일먼저 돌아야함
+        public static GameData Instance
+        {
+            get
+            {
+                if (_instance == null) _instance = FindFirstObjectByType<GameData>();
+                return _instance;
+            }
+        }
 
         public int CurrentLevel { get; set; } = 1;
-        public int Money { get; set; } = 0;
-
+        public int CurrentMoney { get; set; } = 1000;
+        
+        public int CurrentMaxWeightLevel { get; set; } = 1;
+        public int CurrentRunSpeedLevel { get; set; } = 1;
+        public int CurrentScanCooldownLevel { get; set; } = 1;
+        
         private void Awake()
         {
-            if (Instance != null && Instance != this)
+            if (_instance != null && _instance != this)
             {
                 Destroy(gameObject); return;
             }
-            Instance = this;
+            _instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }
