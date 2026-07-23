@@ -1,3 +1,4 @@
+using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -31,9 +32,22 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UIUtility
     {
         public static Tween Play(TextMeshProUGUI target, float punchScale = 0.3f, float duration = 0.3f, int vibrato = 8, float elasticity = 0.8f)
         {
-            target.transform.DOKill(); 
+            target.transform.DOKill();
             target.transform.localScale = Vector3.one;
             return target.transform.DOPunchScale(Vector3.one * punchScale, duration, vibrato, elasticity);
+        }
+    }
+
+    public static class TypewriterText
+    {
+        public static IEnumerator Play(TextMeshProUGUI target, string fullText, float charInterval)
+        {
+            target.text = "";
+            foreach (char c in fullText)
+            {
+                target.text += c;
+                yield return new WaitForSeconds(charInterval);
+            }
         }
     }
 }

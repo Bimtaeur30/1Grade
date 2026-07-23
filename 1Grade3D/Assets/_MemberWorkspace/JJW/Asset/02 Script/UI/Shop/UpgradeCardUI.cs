@@ -133,7 +133,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
             if (currentLevel >= MaxLevel)
             {
                 descriptionText.text = "더이상 강화할수 없습니다.";
-                priceText.text = "-";
+                priceText.text = "";
                 levelText.text = "MAX";
                 return;
             }
