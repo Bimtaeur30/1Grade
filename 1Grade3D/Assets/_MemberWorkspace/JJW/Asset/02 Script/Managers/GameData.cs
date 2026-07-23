@@ -6,8 +6,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
     {
         private static GameData _instance;
 
-        //다른 오브젝트의 OnEnable이 이 스크립트의 Awake보다 먼저 돌 수 있다.
-        //그때도 null이 아니도록 아직 대입 전이면 직접 찾아온다.
+        //제일먼저 돌아야함
         public static GameData Instance
         {
             get
