@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f097a75f944f4173b05894dcf678ea47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.UI.SettlementUI
-  eventChannel: {fileID: 11400000, guid: 57f89659ffd948d46a997d7478344e0f, type: 2}
+  eventChannel: {fileID: 11400000, guid: c2f3071130ccdbd41b36cf31f73679c4, type: 2}
   collectedItemUIPrefab: {fileID: 6863846850130483837, guid: c9be3ec5c8dbada46a0429456c018093, type: 3}
   itemListContainer: {fileID: 4827869111147365901}
   settlementUIPanel: {fileID: 4747868863280098219}
@@ -541,4 +541,3 @@ MonoBehaviour:
   countUpDuration: 0.3
   itemRevealInterval: 0.3
   charInterval: 0.05
-  monthlyRent: 100

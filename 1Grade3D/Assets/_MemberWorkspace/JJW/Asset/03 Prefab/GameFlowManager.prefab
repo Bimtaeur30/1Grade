@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.Managers.GameFlowManager
   exploreTimeLimit: 30
-  eventChannel: {fileID: 11400000, guid: 57f89659ffd948d46a997d7478344e0f, type: 2}
+  eventChannel: {fileID: 11400000, guid: c2f3071130ccdbd41b36cf31f73679c4, type: 2}

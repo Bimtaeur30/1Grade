@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _MemberWorkspace.JJW.Asset._02_Script.Events;
 using _MemberWorkspace.JJW.Asset._02_Script.Item;
+using _MemberWorkspace.JJW.Asset._02_Script.Managers;
 using _MemberWorkspace.JJW.Asset._02_Script.UIUtility;
 using DG.Tweening;
 using GameLib.EventChannelSystem;
@@ -21,7 +22,8 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
         
         [SerializeField] private float fadeDuration = 1f;
         [SerializeField] private float countUpDuration = 0.3f;
-        [SerializeField] private float itemRevealInterval = 0.3f; 
+        [SerializeField] private float itemRevealInterval = 0.3f;
+        [SerializeField] private float charInterval = 0.05f;
         
         private int _currentMoney;
         private Tween _moneyTween;
@@ -84,6 +86,11 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
                 CreateItemUI(item);
                 yield return new WaitForSeconds(itemRevealInterval);
             }
+
+            int finalMoney = _currentMoney + GameData.Instance.CurrentMoney;
+            string finalText = $"{_currentMoney} + {GameData.Instance.CurrentMoney} = {finalMoney}원";
+            _typeRoutine = StartCoroutine(TypewriterText.Play(totalMoneyText, finalText, charInterval));
+            GameData.Instance.CurrentMoney = finalMoney;
         }
 
         private void CreateItemUI(ItemSO item)
@@ -104,7 +111,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
         private void AnimateMoneyCount(int from, int to)
         {
             _moneyTween?.Kill();
-            _moneyTween = CountUpText.Animate(totalMoneyText, from, to, countUpDuration,"{0}원");
+            _moneyTween = CountUpText.Animate(totalMoneyText, from, to, countUpDuration);
         }
     }
 }

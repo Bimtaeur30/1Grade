@@ -4,7 +4,7 @@ using _MemberWorkspace.JJW.Asset._02_Script.Events;
 
 namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
 {
-    public enum GameState { Exploring, Storm, Shopping }
+    public enum GameState { Exploring, Storm, Shopping }//Exploring이게 인게임 플레이중일때
 
     public class GameFlowManager : MonoBehaviour
     {
