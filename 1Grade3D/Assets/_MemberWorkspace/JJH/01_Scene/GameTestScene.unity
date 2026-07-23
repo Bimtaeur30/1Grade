@@ -10371,8 +10371,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -10736,6 +10736,7 @@ MonoBehaviour:
   maxItemCount: 15
   poolManager: {fileID: 11400000, guid: b17c4ba487b81f642a923be629ce8c11, type: 2}
   groundTilePool: {fileID: 11400000, guid: 6ff75161670ef7c42aa9e066c73e0240, type: 2}
+  cutscene: {fileID: 1334190831}
 --- !u!4 &340377103
 Transform:
   m_ObjectHideFlags: 0
@@ -17974,6 +17975,81 @@ Transform:
   m_Children: []
   m_Father: {fileID: 328773894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &931148440
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 931148441}
+  - component: {fileID: 931148442}
+  m_Layer: 0
+  m_Name: CutSceneCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &931148441
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931148440}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.14779952, y: 0.45529434, z: -0.07694934, w: 0.8746092}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1310713206}
+  m_LocalEulerAnglesHint: {x: 19.184, y: 55, z: -0.001}
+--- !u!114 &931148442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931148440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+  Priority:
+    Enabled: 1
+    m_Value: 8
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60.000004
+    OrthographicSize: 5
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
 --- !u!1 &934539797
 GameObject:
   m_ObjectHideFlags: 0
@@ -18325,7 +18401,7 @@ MonoBehaviour:
   PlayerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
   <MaxWeight>k__BackingField: 50
   <RunSpeed>k__BackingField: 2
-  <ScanCooltime>k__BackingField: 5
+  <ScanCooltime>k__BackingField: 1
 --- !u!1 &1034983859
 GameObject:
   m_ObjectHideFlags: 0
@@ -19592,7 +19668,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 70
+  field of view: 60.000004
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -19618,13 +19694,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1299718456}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.25595188, y: 0, z: 0, w: 0.9666895}
-  m_LocalPosition: {x: 0, y: 1.99, z: -3}
+  m_LocalRotation: {x: 0.14779952, y: 0.45529434, z: -0.07694934, w: 0.8746092}
+  m_LocalPosition: {x: -0.032059997, y: 2.00546, z: -6.00433}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 14.718, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 29.69, y: 0, z: 0}
 --- !u!114 &1299718460
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19701,6 +19777,38 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!1 &1310713205
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1310713206}
+  m_Layer: 0
+  m_Name: RotatePivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1310713206
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1310713205}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.04, y: 1.4, z: -5.86}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 931148441}
+  m_Father: {fileID: 1334190832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1319680585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19762,6 +19870,61 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 258e9ce83710b5d4894efc5443eaeb76, type: 3}
+--- !u!1 &1334190830
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1334190832}
+  - component: {fileID: 1334190831}
+  m_Layer: 0
+  m_Name: MapIntroCutscene
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1334190831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334190830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6b280149dfece24aa7511745cb22ee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJH._02_Scripts.Map.MapIntroCutscene
+  mapGenerator: {fileID: 340377102}
+  introCamera: {fileID: 931148442}
+  playerCamera: {fileID: 268787598}
+  rotatePivot: {fileID: 1310713206}
+  rotateAngle: -90
+  rotateDuration: 5
+  spawnDelay: 0.15
+  endDelay: 1
+  minSpawnDelay: 0.05
+  maxSpawnDelay: 0.25
+--- !u!4 &1334190832
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334190830}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.07206, y: 0.60546, z: -0.14433}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1310713206}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1406916774
 GameObject:
   m_ObjectHideFlags: 0
@@ -26884,5 +27047,6 @@ SceneRoots:
   - {fileID: 1689489631}
   - {fileID: 1225685350}
   - {fileID: 340377103}
+  - {fileID: 1334190832}
   - {fileID: 22613342}
   - {fileID: 437458390}

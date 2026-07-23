@@ -31,8 +31,8 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             itemInfoUI.descriptionText.text = item.Description;
             itemInfoUI.gradeText.text = item.Grade.ToString();
             itemInfoUI.durabilityText.text = item.MaxDurability.ToString();
-            itemInfoUI.weightText.text = item.Weight.ToString("F1");
-            itemInfoUI.priceText.text = item.Price.ToString();
+            itemInfoUI.weightText.text = $"무게: {item.Weight.ToString("F1")}kg";
+            itemInfoUI.priceText.text = $"가격: {item.Price.ToString()}원";
         }
 
         public void Hide()

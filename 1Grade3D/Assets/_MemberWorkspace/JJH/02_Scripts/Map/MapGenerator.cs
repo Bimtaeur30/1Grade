@@ -23,12 +23,20 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         [SerializeField] private PoolManagerSO poolManager;
         [SerializeField] private PoolItemSO groundTilePool;
 
+        [Header("CutScene")]
+        [SerializeField] private MapIntroCutscene cutscene;
+
+        public IReadOnlyList<GroundTile> ItemTiles => _itemTiles;
+        private readonly List<GroundTile> _itemTiles = new();
+
         private GroundTile[,] tiles;
 
         private void Start()
         {
             GenerateMap();
             SpawnItems();
+
+            cutscene.Play();
         }
 
         private void GenerateMap()
@@ -69,17 +77,26 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
         private void SpawnItems()
         {
+            _itemTiles.Clear();
+
             int itemCount = Random.Range(minItemCount, maxItemCount + 1);
+
             int spawned = 0;
+
             while (spawned < itemCount)
             {
                 int x = Random.Range(0, width);
                 int z = Random.Range(0, height);
+
                 if (tiles[x, z].HasItem)
                     continue;
 
                 ItemSO item = itemList[Random.Range(0, itemList.Count)];
+
                 tiles[x, z].Initialize(tiles[x, z].GroundIndex, true, item);
+
+                _itemTiles.Add(tiles[x, z]);
+
                 spawned++;
             }
         }

@@ -159,5 +159,42 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         }
 
         #endregion
+
+        #region CutScene
+
+        public void PlayDropAnimation(float duration = 0.5f)
+        {
+            if (_popRoutine != null)
+                StopCoroutine(_popRoutine);
+
+            StartCoroutine(DropRoutine(duration));
+        }
+
+        private IEnumerator DropRoutine(float duration)
+        {
+            Vector3 end = transform.position;
+            Vector3 start = end + Vector3.up * 15f;
+
+            transform.position = start;
+
+            float t = 0f;
+
+            while (t < duration)
+            {
+                t += Time.deltaTime;
+
+                float p = t / duration;
+                p = 1f - Mathf.Pow(1f - p, 3f);
+
+                transform.position = Vector3.Lerp(start, end, p);
+                transform.Rotate(720f * Time.deltaTime, 0f, 0f);
+
+                yield return null;
+            }
+
+            transform.position = end;
+        }
+
+        #endregion
     }
 }

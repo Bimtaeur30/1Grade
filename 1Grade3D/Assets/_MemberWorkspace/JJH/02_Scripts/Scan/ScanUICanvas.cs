@@ -12,13 +12,11 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         private void Awake()
         {
             cam = Camera.main.transform;
-            gameObject.SetActive(false);
         }
 
         public void SetTarget(Transform target)
         {
             this.target = target;
-            gameObject.SetActive(target != null);
         }
 
         private void LateUpdate()
