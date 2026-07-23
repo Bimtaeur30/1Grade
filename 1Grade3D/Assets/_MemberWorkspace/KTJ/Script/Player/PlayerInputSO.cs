@@ -59,7 +59,7 @@ public sealed class PlayerInputSO : ScriptableObject, Controls.IPlayerActions
 
         if (Physics.Raycast(ray, out RaycastHit hit, MainCamera.farClipPlane, itemLayer))
         {
-            GroundTile tile = hit.collider.GetComponent<GroundTile>();
+            GroundTile tile = hit.collider.GetComponentInParent<GroundTile>();
             if (tile.HasItem)
                 return tile;
         }

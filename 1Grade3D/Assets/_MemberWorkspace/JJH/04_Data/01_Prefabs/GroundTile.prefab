@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2150058455111949517}
   - component: {fileID: 1757508307982684655}
   - component: {fileID: 4229480295063101892}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: GroundTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +137,7 @@ GameObject:
   m_Component:
   - component: {fileID: 868632542208253685}
   - component: {fileID: 3728632213953153993}
+  - component: {fileID: 1983228171285400157}
   m_Layer: 6
   m_Name: ItemSprite
   m_TagString: Untagged
@@ -218,3 +219,24 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!65 &1983228171285400157
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7802258612295356624}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
