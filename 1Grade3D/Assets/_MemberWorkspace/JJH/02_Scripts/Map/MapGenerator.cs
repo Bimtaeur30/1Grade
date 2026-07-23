@@ -43,18 +43,15 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             }
 
             tiles = new GroundTile[width, height];
-
             for (int x = 0; x < width; x++)
             {
                 for (int z = 0; z < height; z++)
                 {
                     GroundTile tile = poolManager.Pop<GroundTile>(groundTilePool);
-
                     tile.transform.SetParent(transform);
                     tile.transform.SetPositionAndRotation(new Vector3(x, 0, z),
                                                                                   groundTilePool.prefab.transform.rotation);
-                    tile.InitItem(false);
-
+                    tile.Initialize(z * width + x, false);
                     tiles[x, z] = tile;
                 }
             }
@@ -63,21 +60,16 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         private void SpawnItems()
         {
             int itemCount = Random.Range(minItemCount, maxItemCount + 1);
-
             int spawned = 0;
-
             while (spawned < itemCount)
             {
                 int x = Random.Range(0, width);
                 int z = Random.Range(0, height);
-
                 if (tiles[x, z].HasItem)
                     continue;
 
                 ItemSO item = itemList[Random.Range(0, itemList.Count)];
-
-                tiles[x, z].InitItem(true, item);
-
+                tiles[x, z].Initialize(tiles[x, z].GroundIndex, true, item);
                 spawned++;
             }
         }
