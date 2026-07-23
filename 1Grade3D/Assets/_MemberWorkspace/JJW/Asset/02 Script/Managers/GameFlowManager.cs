@@ -1,24 +1,21 @@
-using System;
 using UnityEngine;
+using GameLib.EventChannelSystem;
+using _MemberWorkspace.JJW.Asset._02_Script.Events;
 
 namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
 {
-    public enum GameState { Exploring, Storm, Shopping}
+    public enum GameState { Exploring, Storm, Shopping }
 
     public class GameFlowManager : MonoBehaviour
     {
         public static GameFlowManager Instance { get; private set; }
         public GameState CurrentState { get; private set; }
-        
+
         [SerializeField] private float exploreTimeLimit = 30f;
+        [SerializeField] private EventChannelSO eventChannel;
+
         private float _timer;
 
-        public event Action OnExploreStart;
-        public event Action OnExploreEnd;
-        
-        public event Action OnStormStart;
-        public event Action OnStormEnd;
-        
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -37,22 +34,22 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
             }
         }
 
-        public void EndExploring()//타이머 안끝나도 상점갈수 있으니까 그냥 퍼블릭으로 둠 ㅇㅇ
+        public void EndExploring() // 타이머 안끝나도 상점갈수 있으니까 그냥 퍼블릭으로 둠 ㅇㅇ
         {
             CurrentState = GameState.Shopping;
-            OnExploreEnd?.Invoke();
+            eventChannel.RaiseEvent(new ExploreEndEvent());
         }
 
         public void StartStorm()
         {
             CurrentState = GameState.Storm;
-            OnStormStart?.Invoke();
+            eventChannel.RaiseEvent(new StormStartEvent());
         }
 
         public void EndStorm()
         {
             CurrentState = GameState.Exploring;
-            OnStormEnd?.Invoke();
+            eventChannel.RaiseEvent(new StormEndEvent());
             GameData.Instance.CurrentLevel++;
             StartExploring();
         }
@@ -61,7 +58,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         {
             CurrentState = GameState.Exploring;
             _timer = exploreTimeLimit;
-            OnExploreStart?.Invoke();
+            eventChannel.RaiseEvent(new ExploreStartEvent());
         }
     }
 }
