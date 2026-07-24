@@ -10806,6 +10806,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MapGenerator
   spawnPoint: {fileID: 22613342}
+  cutscene: {fileID: 1334190831}
+  <FlowChannel>k__BackingField: {fileID: 11400000, guid: 3f1ab5193905788439e04424017e6d6e, type: 2}
   width: 10
   height: 10
   itemList:
@@ -10815,7 +10817,6 @@ MonoBehaviour:
   maxItemCount: 15
   poolManager: {fileID: 11400000, guid: b17c4ba487b81f642a923be629ce8c11, type: 2}
   groundTilePool: {fileID: 11400000, guid: 6ff75161670ef7c42aa9e066c73e0240, type: 2}
-  cutscene: {fileID: 1334190831}
 --- !u!4 &340377103
 Transform:
   m_ObjectHideFlags: 0
@@ -21765,6 +21766,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hole
   rotatingObject: {fileID: 169716728}
+  frameTraceEffect: {fileID: 0}
+  turnChannel: {fileID: 0}
   openedXAngle: -40
   closedXAngle: 90
   rotationSpeed: 180

@@ -1,4 +1,6 @@
+using _MemberWorkspace.JJW.Asset._02_Script.Events;
 using _MemberWorkspace.JJW.Asset._02_Script.Item;
+using GameLib.EventChannelSystem;
 using GGMLib.ObjectPool.Runtime;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +11,8 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
     {
         [Header("Spawn")]
         [SerializeField] private Transform spawnPoint;
+        [SerializeField] private MapIntroCutscene cutscene;
+        [field: SerializeField] public EventChannelSO FlowChannel { get; private set; }
 
         [Header("Map Size")]
         [SerializeField] private int width = 10;
@@ -23,15 +27,30 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         [SerializeField] private PoolManagerSO poolManager;
         [SerializeField] private PoolItemSO groundTilePool;
 
-        [Header("CutScene")]
-        [SerializeField] private MapIntroCutscene cutscene;
-
         public IReadOnlyList<GroundTile> ItemTiles => _itemTiles;
         private readonly List<GroundTile> _itemTiles = new();
 
         private GroundTile[,] tiles;
 
-        private void Start()
+        private void Awake()
+        {
+            FlowChannel.AddListener<StormStartEvent>(StartGenerate);
+        }
+
+        private void OnDestroy()
+        {
+            FlowChannel.RemoveListener<StormStartEvent>(StartGenerate);
+        }
+
+        private void StartGenerate(StormStartEvent evt)
+        {
+            GenerateMap();
+            SpawnItems();
+
+            cutscene.Play();
+        }
+
+        private void Start() //test
         {
             GenerateMap();
             SpawnItems();
