@@ -136,6 +136,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1088074243}
     - target: {fileID: 1545104610853145704, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+      propertyPath: failBuyUX
+      value: 
+      objectReference: {fileID: 6731487173238401326}
+    - target: {fileID: 1545104610853145704, guid: 4717316828037514c93ed611ab3b4039, type: 3}
       propertyPath: moneyChecker
       value: 
       objectReference: {fileID: 254915862}
@@ -244,6 +248,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1088074243}
     - target: {fileID: 2793845279669030565, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+      propertyPath: failBuyUX
+      value: 
+      objectReference: {fileID: 6731487173238401326}
+    - target: {fileID: 2793845279669030565, guid: 4717316828037514c93ed611ab3b4039, type: 3}
       propertyPath: moneyChecker
       value: 
       objectReference: {fileID: 254915862}
@@ -263,6 +271,10 @@ PrefabInstance:
       propertyPath: shopUI
       value: 
       objectReference: {fileID: 1088074243}
+    - target: {fileID: 4999147284974662953, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+      propertyPath: failBuyUX
+      value: 
+      objectReference: {fileID: 6731487173238401326}
     - target: {fileID: 4999147284974662953, guid: 4717316828037514c93ed611ab3b4039, type: 3}
       propertyPath: moneyChecker
       value: 
@@ -1092,6 +1104,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5276418746828414865, guid: b9adfbb0e9935204884c7557c418a194, type: 3}
   m_PrefabInstance: {fileID: 2145370706101499286}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1695246106 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3850268724760224234, guid: b9adfbb0e9935204884c7557c418a194, type: 3}
+  m_PrefabInstance: {fileID: 2145370706101499286}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1812914214
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1690,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 794692112360131446, guid: 4b2018539e9d53f44843835607122e7d, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1695246106}
     - target: {fileID: 1333239852785958313, guid: 4b2018539e9d53f44843835607122e7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1716,6 +1743,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b2018539e9d53f44843835607122e7d, type: 3}
+--- !u!114 &6731487173238401326 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 794692112360131446, guid: 4b2018539e9d53f44843835607122e7d, type: 3}
+  m_PrefabInstance: {fileID: 6731487173238401325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74bfb278a0ce488a8b222c0e83ad67e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.UI.Shop.FailBuyUX
 --- !u!1001 &7118555596970076125
 PrefabInstance:
   m_ObjectHideFlags: 0

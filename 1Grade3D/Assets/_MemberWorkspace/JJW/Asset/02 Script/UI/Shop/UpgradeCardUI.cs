@@ -13,6 +13,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
     {
         [SerializeField] private UpgradeCardSO upgradeCardSO;
         [SerializeField] private MoneyChecker moneyChecker;
+        [SerializeField] private FailBuyUX failBuyUX;
         [SerializeField] private EventChannelSO eventChannelSO;
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Ease ease;
@@ -140,7 +141,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
 
             descriptionText.text = upgradeCardSO.LevelDatas[currentLevel-1].description;//2렙부터니까
             priceText.text = upgradeCardSO.LevelDatas[currentLevel-1].cost.ToString();//2렙부터니까
-            levelText.text = currentLevel.ToString();
+            levelText.text = (currentLevel+1).ToString();
         }
 
         public void Buy()
@@ -149,7 +150,9 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
             if (currentLevel >= MaxLevel) return;
 
             if (!moneyChecker.CheckMoney(upgradeCardSO.LevelDatas[currentLevel-1].cost))//2렙부터니까
+            {
                 return;
+            }
 
             int amount = upgradeCardSO.LevelDatas[currentLevel-1].amount;//2렙부터니까
 
