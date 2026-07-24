@@ -15,11 +15,19 @@ public class ItemEquipEvent : GameEvent
 {
     public ItemSO Item { get; private set; }
     public ScalePlateEnum ScalePlateEnum { get; private set; }
+    public bool IsAccepted { get; private set; }
+
     public ItemEquipEvent Init(ItemSO item, ScalePlateEnum scalePlateEnum)
     {
         Item = item;
         ScalePlateEnum = scalePlateEnum;
+        IsAccepted = false;
         return this;
+    }
+
+    public void Accept()
+    {
+        IsAccepted = true;
     }
 }
 public class RunSpeedUpgradeEvent : GameEvent

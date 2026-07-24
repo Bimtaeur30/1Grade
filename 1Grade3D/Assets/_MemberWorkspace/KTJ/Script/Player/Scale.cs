@@ -129,6 +129,7 @@ public class Scale : MonoBehaviour
         loadedItems.Add(currentItem);
         AddPlateWeight(@event.ScalePlateEnum, currentItem.Weight);
         AddItemWeight(currentItem.Weight);
+        @event.Accept();
     }
 
     private void HandleTurnEndEvent(TurnEndEvent @event)

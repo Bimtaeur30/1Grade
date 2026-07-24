@@ -35,7 +35,7 @@ public sealed class FrameTraceEffect : MonoBehaviour
         }
 
         targetImage.raycastTarget = false;
-        SetProgress(0f);
+        ApplyProgress(0f);
     }
 
     private void OnEnable()
@@ -74,23 +74,30 @@ public sealed class FrameTraceEffect : MonoBehaviour
     {
         StopCurrent();
         completedCallback = null;
-        SetProgress(0f);
+        ApplyProgress(0f);
+    }
+
+    public void SetProgress(float progress)
+    {
+        StopCurrent();
+        completedCallback = null;
+        ApplyProgress(progress);
     }
 
     private IEnumerator PlayRoutine()
     {
         float elapsedTime = 0f;
-        SetProgress(0f);
+        ApplyProgress(0f);
 
         while (elapsedTime < duration)
         {
             elapsedTime += Time.unscaledDeltaTime;
             float normalizedTime = Mathf.Clamp01(elapsedTime / duration);
-            SetProgress(progressCurve.Evaluate(normalizedTime));
+            ApplyProgress(progressCurve.Evaluate(normalizedTime));
             yield return null;
         }
 
-        SetProgress(1f);
+        ApplyProgress(1f);
         playCoroutine = null;
 
         Action callback = completedCallback;
@@ -98,7 +105,7 @@ public sealed class FrameTraceEffect : MonoBehaviour
         callback?.Invoke();
     }
 
-    private void SetProgress(float progress)
+    private void ApplyProgress(float progress)
     {
         if (runtimeMaterial != null)
         {

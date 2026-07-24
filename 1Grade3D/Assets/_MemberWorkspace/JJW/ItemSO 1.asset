@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.Item.ItemSO
   <Name>k__BackingField: TestItem2
   <Description>k__BackingField: "\uD14C\uC2A4\uD2B8\uC784"
-  <Icon>k__BackingField: {fileID: 21300000, guid: 42db021c60629ad43b4bf10c8d17ae2c, type: 3}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 0f83bfe19af4ada4bbe268237dc0e97d, type: 3}
   <Grade>k__BackingField: 0
   <MaxDurability>k__BackingField: 100
   <Weight>k__BackingField: 100
   <Price>k__BackingField: 100
+  <Scale>k__BackingField: 1

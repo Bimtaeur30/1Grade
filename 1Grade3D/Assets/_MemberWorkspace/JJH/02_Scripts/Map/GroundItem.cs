@@ -12,6 +12,9 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         [SerializeField] private EventChannelSO playerChannel;
         [SerializeField] private PoolManagerSO poolManager;
 
+        [Header("Collider")]
+        [SerializeField, Range(0.1f, 1f)] private float colliderSizeMultiplier = 1f;
+
         [Header("Scan Materials")]
         [SerializeField] private Material spriteScanPixelateMaterial;
         [SerializeField] private Material movingStripeMaterial;
@@ -99,9 +102,57 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
             transform.localScale = Vector3.one * item.Scale;
 
-            Bounds spriteBounds = _spriteRenderer.sprite.bounds;
-            _boxCollider.size = new Vector3(spriteBounds.size.x, spriteBounds.size.y, _boxCollider.size.z);
-            _boxCollider.center = new Vector3(spriteBounds.center.x, spriteBounds.center.y, _boxCollider.center.z);
+            UpdateColliderFromSprite(_spriteRenderer.sprite);
+        }
+
+        private void UpdateColliderFromSprite(Sprite sprite)
+        {
+            Vector2[] vertices = sprite.vertices;
+            Bounds spriteBounds = sprite.bounds;
+            Vector2 min = spriteBounds.min;
+            Vector2 max = spriteBounds.max;
+
+            if (vertices != null && vertices.Length > 0)
+            {
+                min = vertices[0];
+                max = vertices[0];
+
+                for (int i = 1; i < vertices.Length; i++)
+                {
+                    min = Vector2.Min(min, vertices[i]);
+                    max = Vector2.Max(max, vertices[i]);
+                }
+            }
+
+            Vector2 tightSize = max - min;
+            Vector2 tightCenter = (min + max) * 0.5f;
+
+            if (_spriteRenderer.drawMode != SpriteDrawMode.Simple)
+            {
+                Vector2 sourceSize = spriteBounds.size;
+                Vector2 rendererSize = _spriteRenderer.size;
+                Vector2 drawScale = new Vector2(
+                    sourceSize.x > Mathf.Epsilon
+                        ? rendererSize.x / sourceSize.x
+                        : 1f,
+                    sourceSize.y > Mathf.Epsilon
+                        ? rendererSize.y / sourceSize.y
+                        : 1f);
+
+                tightSize = Vector2.Scale(tightSize, drawScale);
+                tightCenter = Vector2.Scale(tightCenter, drawScale);
+            }
+
+            tightSize *= colliderSizeMultiplier;
+
+            _boxCollider.size = new Vector3(
+                tightSize.x,
+                tightSize.y,
+                _boxCollider.size.z);
+            _boxCollider.center = new Vector3(
+                tightCenter.x,
+                tightCenter.y,
+                _boxCollider.center.z);
         }
 
         public void SetOutline(float thickness)
@@ -209,9 +260,14 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             if (plate == null)
                 return;
 
-            playerChannel.RaiseEvent(PlayerEvents.ItemEquipEvent.Init(Item, plate.ScalePlateEnum));
+            ItemEquipEvent itemEquipEvent =
+                PlayerEvents.ItemEquipEvent.Init(Item, plate.ScalePlateEnum);
+            playerChannel.RaiseEvent(itemEquipEvent);
 
-            poolManager.Push(this);
+            if (itemEquipEvent.IsAccepted)
+            {
+                poolManager.Push(this);
+            }
         }
 
         #endregion
