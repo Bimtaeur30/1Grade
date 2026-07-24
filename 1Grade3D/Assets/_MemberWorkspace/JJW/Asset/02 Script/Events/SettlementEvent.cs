@@ -13,7 +13,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Events
     {
         public List<ItemSO> Items { get; private set; }
 
-        public SettlementEvent Init(List<ItemSO> items)
+        public SettlementEvent Init(List<ItemSO> items)//태준이가 초기화 해서 호출
         {
             Items = items;
             return this;
