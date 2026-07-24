@@ -1,4 +1,5 @@
 using _MemberWorkspace.JJW.Asset._02_Script.Item;
+using TMPro;
 using UnityEngine;
 
 public class ScalePlate : MonoBehaviour
@@ -6,6 +7,14 @@ public class ScalePlate : MonoBehaviour
     [field: SerializeField] public ScalePlateEnum ScalePlateEnum { get; private set; }
     [SerializeField] private ScaleItem ItemPrefab;
     [SerializeField] private Transform ItemPrefabParent;
+    [SerializeField] private TextMeshProUGUI WeightText;
+
+    public float TotalWeight { get; private set; }
+
+    private void Awake()
+    {
+        UpdateWeightText();
+    }
 
     public void AddItem(ItemSO item)
     {
@@ -21,5 +30,16 @@ public class ScalePlate : MonoBehaviour
             Random.Range(-0.1f, 0.1f),
             Random.Range(-0.1f, 0f),
             0f);
+
+        TotalWeight += item.Weight;
+        UpdateWeightText();
+    }
+
+    private void UpdateWeightText()
+    {
+        if (WeightText != null)
+        {
+            WeightText.text = $"{TotalWeight:0.##}Kg";
+        }
     }
 }
