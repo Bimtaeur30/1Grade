@@ -48,7 +48,8 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
                 _entranceRoutine = null;
             }
             
-            CursorManager.Instance.SetCursorVisible(true);
+            if(CursorManager.Instance != null)
+                CursorManager.Instance.SetCursorVisible(true);
         }
 
         private void ResetCards()
