@@ -10,6 +10,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         [SerializeField] private EventChannelSO playerChannel;
         [SerializeField] private ScannerUI scannerUI;
         [SerializeField] private PlayerStat playerStat;
+        [SerializeField] private FrameTraceEffect frameTraceEffect;
 
         [SerializeField] private float scanDuration = 5f;
         [SerializeField] private float chargeDuration = 0.15f;
@@ -27,6 +28,12 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
         private void Awake()
         {
+            if (frameTraceEffect == null)
+            {
+                frameTraceEffect =
+                    FindFirstObjectByType<FrameTraceEffect>();
+            }
+
             playerInput.OnScannerKeyPressed += UseScanner;
             playerInput.OnScannerKeyReleased += StopScanner;
             playerStat.ScanCooltimeChanged += ScanCoolTimeChange;
@@ -85,6 +92,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             scannerUI.Open();
             scannerUI.SetGauge(0);
             scannerUI.FadeOutCoolTime();
+            frameTraceEffect?.SetProgress(1f);
         }
 
         private void StopScanner()
@@ -97,6 +105,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             scannerUI.SetCoolTime(0f);
             scannerUI.SetCoolTimeCharging();
             scannerUI.FadeInCoolTime();
+            frameTraceEffect?.ResetEffect();
 
             playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(false));
 
@@ -128,6 +137,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             _remainTime -= Time.unscaledDeltaTime;
 
             scannerUI.SetGauge(_remainTime / scanDuration);
+            frameTraceEffect?.SetProgress(_remainTime / scanDuration);
 
             if (_remainTime <= 0)
                 StopScanner();
