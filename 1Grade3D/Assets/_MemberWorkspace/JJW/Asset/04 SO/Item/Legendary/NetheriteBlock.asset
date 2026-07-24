@@ -15,7 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: "\uB124\uB354\uB77C\uC774\uD2B8 \uBE14\uB7ED"
   <Description>k__BackingField: "\uB2E4\uB978 \uC138\uACC4\uC5D0\uC11C \uC628 \uAC83
     \uAC19\uC740 \uBB34\uAC8C\uC774\uB2E4."
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 5c36a60f5eb96e74cacbc559ad7d1eea, type: 3}
   <Grade>k__BackingField: 2
   <MaxDurability>k__BackingField: 0
   <Weight>k__BackingField: 0
