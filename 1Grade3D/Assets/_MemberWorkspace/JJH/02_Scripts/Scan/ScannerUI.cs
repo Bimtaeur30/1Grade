@@ -1,5 +1,6 @@
 ﻿using _MemberWorkspace.JJH._02_Scripts.Map;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,8 +15,13 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         [SerializeField] private CanvasGroup canvasGroup;
         [SerializeField] private Image scannerGauge;
         [SerializeField] private Slider coolTimeSlider;
+        [SerializeField] private CanvasGroup coolTimeCanvasGroup;
+        [SerializeField] private TMP_Text scanTxt;
 
         [SerializeField] private ItemInfoUI itemInfoUI;
+
+        [Header("Cool Time UI")]
+        [SerializeField, Min(0.01f)] private float coolTimeFadeDuration = 0.25f;
 
         [Header("CRT Animation")]
         [SerializeField] private RectTransform effectRoot;
@@ -26,6 +32,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         [SerializeField, Min(0f)] private float noiseJitter = 3f;
 
         private Coroutine transitionCoroutine;
+        private Coroutine coolTimeFadeCoroutine;
         private Vector2 initialAnchoredPosition;
         private Vector3 initialScale;
 
@@ -42,6 +49,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
                 initialScale = effectRoot.localScale;
             }
 
+            InitializeCoolTimeUI();
             CloseImmediately();
         }
 
@@ -95,14 +103,32 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             coolTimeSlider.value = Mathf.Clamp01(value);
         }
 
-        public void ShowCoolTime()
+        public void SetCoolTimeCharging()
         {
-            coolTimeSlider.gameObject.SetActive(true);
+            if (scanTxt != null)
+            {
+                scanTxt.text = "스캔 충전중...";
+            }
         }
 
-        public void HideCoolTime()
+        public void SetCoolTimeReady()
         {
-            coolTimeSlider.gameObject.SetActive(false);
+            SetCoolTime(1f);
+
+            if (scanTxt != null)
+            {
+                scanTxt.text = "스캔 준비완료!";
+            }
+        }
+
+        public void FadeInCoolTime()
+        {
+            StartCoolTimeFade(1f);
+        }
+
+        public void FadeOutCoolTime()
+        {
+            StartCoolTimeFade(0f);
         }
 
         #endregion
@@ -231,6 +257,78 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
             StopCoroutine(transitionCoroutine);
             transitionCoroutine = null;
+        }
+
+        private void InitializeCoolTimeUI()
+        {
+            if (coolTimeSlider == null)
+            {
+                return;
+            }
+
+            coolTimeSlider.gameObject.SetActive(true);
+
+            if (coolTimeCanvasGroup == null)
+            {
+                coolTimeCanvasGroup =
+                    coolTimeSlider.GetComponent<CanvasGroup>();
+            }
+
+            if (scanTxt == null)
+            {
+                scanTxt =
+                    coolTimeSlider.GetComponentInChildren<TMP_Text>(true);
+            }
+
+            if (coolTimeCanvasGroup == null)
+            {
+                Debug.LogError(
+                    "ScannerUI: ScannerCoolTimeUI에 CanvasGroup이 없습니다.",
+                    this);
+                return;
+            }
+
+            coolTimeCanvasGroup.alpha = 1f;
+            coolTimeCanvasGroup.interactable = false;
+            coolTimeCanvasGroup.blocksRaycasts = false;
+            SetCoolTimeReady();
+        }
+
+        private void StartCoolTimeFade(float targetAlpha)
+        {
+            if (coolTimeCanvasGroup == null)
+            {
+                return;
+            }
+
+            if (coolTimeFadeCoroutine != null)
+            {
+                StopCoroutine(coolTimeFadeCoroutine);
+            }
+
+            coolTimeFadeCoroutine =
+                StartCoroutine(CoolTimeFadeRoutine(targetAlpha));
+        }
+
+        private IEnumerator CoolTimeFadeRoutine(float targetAlpha)
+        {
+            float startAlpha = coolTimeCanvasGroup.alpha;
+            float elapsedTime = 0f;
+
+            while (elapsedTime < coolTimeFadeDuration)
+            {
+                elapsedTime += Time.unscaledDeltaTime;
+                float normalizedTime =
+                    Mathf.Clamp01(elapsedTime / coolTimeFadeDuration);
+                coolTimeCanvasGroup.alpha = Mathf.Lerp(
+                    startAlpha,
+                    targetAlpha,
+                    Mathf.SmoothStep(0f, 1f, normalizedTime));
+                yield return null;
+            }
+
+            coolTimeCanvasGroup.alpha = targetAlpha;
+            coolTimeFadeCoroutine = null;
         }
     }
 }
