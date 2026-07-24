@@ -105,6 +105,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
             yield return new WaitForSeconds(unselectedFadeDuration);
 
             shopUI.SetActive(false);
+            GameFlowManager.Instance.CloseShop();
         }
     }
 }

@@ -18,7 +18,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
             }
         }
 
-        public int CurrentTurnLevel { get; set; } = 1; //현재 턴 레벨
+        public int CurrentTurnLevel { get; set; } = 1; //현재 턴 레벨은 1로 시작할거
         public int CurrentMoney {
             get=> startMoneyAmount;
             set
