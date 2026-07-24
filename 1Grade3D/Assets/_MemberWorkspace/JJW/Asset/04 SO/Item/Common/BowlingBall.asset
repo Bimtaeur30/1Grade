@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ef71a77d5144adba9b90e58da9e00be, type: 3}
-  m_Name: ItemSO
+  m_Name: BowlingBall
   m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.Item.ItemSO
-  <Name>k__BackingField: 
-  <Description>k__BackingField: 
+  <Name>k__BackingField: "\uBCFC\uB9C1\uACF5"
+  <Description>k__BackingField: "\uB358\uC9C0\uAE30\uC5D4 \uAC78\uB9DE\uC9C0 \uC54A\uC740
+    \uACF5\uC774\uB2E4."
   <Icon>k__BackingField: {fileID: 0}
   <Grade>k__BackingField: 0
   <MaxDurability>k__BackingField: 0
