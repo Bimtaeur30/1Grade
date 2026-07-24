@@ -72,7 +72,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             introCamera.Priority = 10;
             playerCamera.Priority = 20;
 
-            mapGenerator.FlowChannel.RaiseEvent(FlowEvent.StormEndEvent);
+            mapGenerator.FlowChannel.RaiseEvent(FlowEvents.StormEndEvent);
         }
 
         private IEnumerator Rotate()

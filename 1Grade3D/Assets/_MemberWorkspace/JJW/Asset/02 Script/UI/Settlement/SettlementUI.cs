@@ -8,7 +8,6 @@ using DG.Tweening;
 using GameLib.EventChannelSystem;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
 {
@@ -19,6 +18,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
         [SerializeField] private Transform itemListContainer;
         [SerializeField] private CanvasGroup settlementUIPanel;
         [SerializeField] private TextMeshProUGUI totalMoneyText;
+        [SerializeField] private GameObject checkBtn;
         
         [SerializeField] private float fadeDuration = 1f;
         [SerializeField] private float countUpDuration = 0.3f;
@@ -45,8 +45,6 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
             eventChannel.RemoveListener<SettlementEvent>(HandleSettlement);
         }
 
-
-
         private void HandleSettlement(SettlementEvent evt)
         {
             ResetSettlement();
@@ -61,12 +59,13 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
         {
             if (_drawRoutine != null) StopCoroutine(_drawRoutine);
             if (_typeRoutine != null) StopCoroutine(_typeRoutine);
+            checkBtn.SetActive(true);
             _moneyTween?.Kill();
             settlementUIPanel.DOKill();
 
             settlementUIPanel.alpha = 0;
 
-                        _currentMoney = 0;
+            _currentMoney = 0;
             totalMoneyText.text = "0";
 
             for (int i = itemListContainer.childCount - 1; i >= 0; i--)

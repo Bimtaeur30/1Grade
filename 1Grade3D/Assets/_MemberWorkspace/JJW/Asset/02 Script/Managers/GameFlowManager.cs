@@ -41,19 +41,33 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         public void EndTurn() //타이머 안끝나도 상점갈수 있으니까 그냥 퍼블릭으로 둠 ㅇㅇ 상점 갈때 호출
         {
             CurrentState = GameState.Shopping;
-            eventChannel.RaiseEvent(new TurnEndEvent());
+            eventChannel.RaiseEvent(TurnEvents.TurnEndEvent);
         }
 
-        public void StartStorm()//상점에서 아이템 고르면 실행
+        public void CloseShop()//상점에서 아이템 고르면 실행
+        {
+            eventChannel.RaiseEvent(FlowEvents.ShopCloseEvent);
+            StartStorm();
+        }
+
+        public void OpenShop()//정산 완료 버트 누를때
+        {
+            eventChannel.RaiseEvent(FlowEvents.ShopOpenEvent);
+        }
+
+        private void StartStorm()
         {
             CurrentState = GameState.Storm;
-            eventChannel.RaiseEvent(new StormStartEvent());
+            eventChannel.RaiseEvent(FlowEvents.StormStartEvent);
         }
+        
+        
+        
 
         public void EndStorm()//지한이가 호출(폭풍연출 끝나면)
         {
             CurrentState = GameState.Exploring;
-            eventChannel.RaiseEvent(new StormEndEvent());
+            eventChannel.RaiseEvent(FlowEvents.StormEndEvent);
             GameData.Instance.CurrentTurnLevel++;
             StartTurn();
         }
@@ -62,7 +76,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         {
             CurrentState = GameState.Exploring;
             _timer = exploreTimeLimit;
-            eventChannel.RaiseEvent(new TurnStartEvent());
+            eventChannel.RaiseEvent(TurnEvents.TurnStartEvent);
         }
     }
 }
