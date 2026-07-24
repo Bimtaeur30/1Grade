@@ -18,11 +18,6 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         [SerializeField] private int width = 10;
         [SerializeField] private int height = 10;
 
-        [Header("Item")]
-        [SerializeField] private List<ItemSO> itemList;
-        [SerializeField] private int minItemCount = 5;
-        [SerializeField] private int maxItemCount = 15;
-
         [Header("Pooling")]
         [SerializeField] private PoolManagerSO poolManager;
         [SerializeField] private PoolItemSO groundTilePool;
@@ -30,7 +25,8 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         public IReadOnlyList<GroundTile> ItemTiles => _itemTiles;
         private readonly List<GroundTile> _itemTiles = new();
 
-        private GroundTile[,] tiles;
+        private List<ItemSO> _itemList;
+        private GroundTile[,] _tiles;
 
         private void Awake()
         {
@@ -44,14 +40,8 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
         private void StartGenerate(StormStartEvent evt)
         {
-            GenerateMap();
-            SpawnItems();
+            _itemList = evt.ItemList;
 
-            cutscene.Play();
-        }
-
-        private void Start() //test
-        {
             GenerateMap();
             SpawnItems();
 
@@ -60,19 +50,19 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
         private void GenerateMap()
         {
-            if (tiles != null)
+            if (_tiles != null)
             {
                 for (int x = 0; x < width; x++)
                 {
                     for (int z = 0; z < height; z++)
                     {
-                        if (tiles[x, z] != null)
-                            poolManager.Push(tiles[x, z]);
+                        if (_tiles[x, z] != null)
+                            poolManager.Push(_tiles[x, z]);
                     }
                 }
             }
 
-            tiles = new GroundTile[width, height];
+            _tiles = new GroundTile[width, height];
 
             float offsetX = (width - 1) * 0.5f;
             float offsetZ = (height - 1) * 0.5f;
@@ -89,7 +79,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
                     tile.transform.SetPositionAndRotation(position, groundTilePool.prefab.transform.rotation);
 
                     tile.Initialize(z * width + x, false);
-                    tiles[x, z] = tile;
+                    _tiles[x, z] = tile;
                 }
             }
         }
@@ -98,25 +88,32 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         {
             _itemTiles.Clear();
 
-            int itemCount = Random.Range(minItemCount, maxItemCount + 1);
+            List<ItemSO> randomItems = new(_itemList);
 
-            int spawned = 0;
-
-            while (spawned < itemCount)
+            for (int i = randomItems.Count - 1; i > 0; i--)
             {
-                int x = Random.Range(0, width);
-                int z = Random.Range(0, height);
+                int randomIndex = Random.Range(0, i + 1);
 
-                if (tiles[x, z].HasItem)
-                    continue;
+                ItemSO temp = randomItems[i];
+                randomItems[i] = randomItems[randomIndex];
+                randomItems[randomIndex] = temp;
+            }
 
-                ItemSO item = itemList[Random.Range(0, itemList.Count)];
+            foreach (ItemSO item in randomItems)
+            {
+                int x;
+                int z;
 
-                tiles[x, z].Initialize(tiles[x, z].GroundIndex, true, item);
+                do
+                {
+                    x = Random.Range(0, width);
+                    z = Random.Range(0, height);
+                }
+                while (_tiles[x, z].HasItem);
 
-                _itemTiles.Add(tiles[x, z]);
+                _tiles[x, z].Initialize(_tiles[x, z].GroundIndex, true, item);
 
-                spawned++;
+                _itemTiles.Add(_tiles[x, z]);
             }
         }
     }
