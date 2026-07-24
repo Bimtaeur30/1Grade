@@ -32,20 +32,20 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Item
 
         private ItemGrade _currentGrade = ItemGrade.Common;
 
+        private void Awake()
+        {
+            UnlockItems(GetUnlockCount());
+        }
+
         private void OnEnable()
         {
-            eventChannel.AddListener<StormStartEvent>(HandleStormStart);
+            eventChannel.AddListener<StormPrepareEvent>(HandleStormPrepare);
         }
 
         private void OnDisable()
         {
             if (eventChannel != null)
-                eventChannel.RemoveListener<StormStartEvent>(HandleStormStart);
-        }
-
-        private void Start()
-        {
-            UnlockItems(GetUnlockCount());
+                eventChannel.RemoveListener<StormPrepareEvent>(HandleStormPrepare);
         }
 
         private int GetUnlockCount()
@@ -104,7 +104,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Item
             };
         }
 
-        private void HandleStormStart(StormStartEvent evt)
+        private void HandleStormPrepare(StormPrepareEvent evt)
         {
             int pickCount = GetPickCount();
             List<ItemSO> pickedItems = PickWeightedRandomItems(pickCount);
@@ -140,6 +140,12 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Item
         private ItemGrade PickGradeByWeight()
         {
             int totalWeight = commonItems.spawnWeight + normalItems.spawnWeight + legendaryItems.spawnWeight;
+
+            if (totalWeight <= 0)
+            {
+                return ItemGrade.Common;
+            }
+
             int roll = UnityEngine.Random.Range(0, totalWeight);
 
             if (roll < commonItems.spawnWeight) return ItemGrade.Common;
