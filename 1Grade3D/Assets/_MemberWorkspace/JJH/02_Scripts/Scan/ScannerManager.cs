@@ -42,12 +42,13 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         private void Update()
         {
             if (!_isScanning)
+            {
+                UpdateCoolTime();
                 return;
+            }
 
             if (_isCharging)
-            {
                 UpdateCharge();
-            }
             else
             {
                 UpdateTimer();
@@ -83,6 +84,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
             scannerUI.Open();
             scannerUI.SetGauge(0);
+            scannerUI.HideCoolTime();
         }
 
         private void StopScanner()
@@ -91,6 +93,9 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
                 return;
 
             _nextScanTime = Time.unscaledTime + scanCoolTime;
+
+            scannerUI.SetCoolTime(0f);
+            scannerUI.ShowCoolTime();
 
             playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(false));
 
@@ -162,8 +167,26 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             _currentScanEffect.PlayScan(() =>
             {
                 if (_isScanning && _currentItem == scanningItem)
+                {
                     scannerUI.SetItemInfo(scanningItem);
+                }
             });
+        }
+
+        private void UpdateCoolTime()
+        {
+            if (Time.unscaledTime >= _nextScanTime)
+            {
+                scannerUI.HideCoolTime();
+                return;
+            }
+
+            scannerUI.ShowCoolTime();
+
+            float remain = _nextScanTime - Time.unscaledTime;
+            float progress = 1f - (remain / scanCoolTime);
+
+            scannerUI.SetCoolTime(progress);
         }
 
         private void ClearCurrentHover()

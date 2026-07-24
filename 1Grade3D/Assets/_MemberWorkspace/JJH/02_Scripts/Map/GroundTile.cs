@@ -2,7 +2,6 @@
 using GameLib.EventChannelSystem;
 using GGMLib.ObjectPool.Runtime;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace _MemberWorkspace.JJH._02_Scripts.Map
 {
@@ -31,19 +30,34 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             playerChannel.AddListener<ItemDigEvent>(ItemDig);
         }
 
-        private void Update()
-        {
-            if (Keyboard.current.aKey.wasPressedThisFrame)
-            {
-                ItemDigEvent a = new ItemDigEvent();
-                a.GroundCeilNumber = GroundIndex;
-                ItemDig(a);
-            }
-        }
-
         private void OnDestroy()
         {
             playerChannel.RemoveListener<ItemDigEvent>(ItemDig);
+        }
+
+        public void Initialize(int groundIndex, bool hasItem, ItemSO item = null)
+        {
+            GroundIndex = groundIndex;
+            HasItem = hasItem;
+            Item = item;
+        }
+
+        public GroundItem SpawnGroundItem()
+        {
+
+            if (!HasItem || Item == null)
+                return null;
+
+            GroundItem poolItem = poolManager.Pop<GroundItem>(groundPoolItem);
+
+            _groundItem = poolItem;
+
+            poolItem.transform.position = transform.position + Vector3.up * 0.5f;
+            poolItem.transform.rotation = Quaternion.Euler(0, 0, Random.Range(-45, 45));
+
+            poolItem.InitItem(Item);
+
+            return poolItem;
         }
 
         private void ItemDig(ItemDigEvent evt)
@@ -58,22 +72,6 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
                 Item = null;
                 HasItem = false;
                 _groundItem = null;
-            }
-        }
-
-        public void Initialize(int groundIndex, bool hasItem, ItemSO item = null)
-        {
-            GroundIndex = groundIndex;
-            HasItem = hasItem;
-            if (HasItem)
-            {
-                Item = item;
-
-                GroundItem poolItem = poolManager.Pop<GroundItem>(groundPoolItem);
-                _groundItem = poolItem;
-                poolItem.transform.position = transform.position + new Vector3(0, 0.5f, 0);
-                poolItem.transform.rotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-                poolItem.InitItem(item);
             }
         }
     }

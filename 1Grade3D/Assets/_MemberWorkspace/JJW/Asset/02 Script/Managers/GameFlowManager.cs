@@ -24,6 +24,10 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
             }
             Instance = this;
         }
+        private void Start()
+        {
+            StartTurn();
+        }
 
         private void Update()
         {
