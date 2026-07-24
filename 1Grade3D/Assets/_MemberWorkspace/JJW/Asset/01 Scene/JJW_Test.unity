@@ -143,6 +143,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1985310357430258623, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985310357430258623, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 23839545}
+    - target: {fileID: 1985310357430258623, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClick
+      objectReference: {fileID: 0}
+    - target: {fileID: 1985310357430258623, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: _MemberWorkspace.JJW.Asset._02_Script.UI.Shop.SkipButton, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 2496982343440781652, guid: 4717316828037514c93ed611ab3b4039, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -251,19 +267,52 @@ PrefabInstance:
       propertyPath: moneyChecker
       value: 
       objectReference: {fileID: 254915862}
+    - target: {fileID: 8395099440937584611, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+      propertyPath: shopUI
+      value: 
+      objectReference: {fileID: 1088074243}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4556743078535068377, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 6768833184045303692, guid: 4717316828037514c93ed611ab3b4039, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 636463387}
+      addedObject: {fileID: 23839545}
   m_SourcePrefab: {fileID: 100100000, guid: 4717316828037514c93ed611ab3b4039, type: 3}
 --- !u!224 &23839542 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2496982343440781652, guid: 4717316828037514c93ed611ab3b4039, type: 3}
   m_PrefabInstance: {fileID: 23839541}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &23839543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6768833184045303692, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+  m_PrefabInstance: {fileID: 23839541}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &23839544 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8395099440937584611, guid: 4717316828037514c93ed611ab3b4039, type: 3}
+  m_PrefabInstance: {fileID: 23839541}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13950834021645bfa0eca28f43213640, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.UI.Shop.ShopManager
+--- !u!114 &23839545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 23839543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6befb23de3974cd5be7a0d5c9bbc17d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.UI.Shop.SkipButton
+  shopManager: {fileID: 23839544}
 --- !u!1 &103038337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1033,25 +1082,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 560c133f230a11444b9c740418b78962, type: 3}
---- !u!1 &636463386 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4556743078535068377, guid: 4717316828037514c93ed611ab3b4039, type: 3}
-  m_PrefabInstance: {fileID: 23839541}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &636463387
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636463386}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fba9146ac9494c828c90c03728583095, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.UI.Shop.Shop
-  eventChannel: {fileID: 11400000, guid: c2f3071130ccdbd41b36cf31f73679c4, type: 2}
-  shopPanel: {fileID: 1088074243}
 --- !u!1 &1088074243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1761876593629161921, guid: 4717316828037514c93ed611ab3b4039, type: 3}

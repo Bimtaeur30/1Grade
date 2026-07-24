@@ -8,6 +8,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
     public class ShopManager : MonoBehaviour
     {
         [SerializeField] private List<UpgradeCardUI> cards; //왼쪽, 가운데, 오른쪽
+        [SerializeField] private GameObject shopUI; 
 
         [Header("등장 연출")]
         [SerializeField] private float entranceInterval = 0.15f;
@@ -21,12 +22,14 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
         [SerializeField] private float dropDuration = 0.3f;
 
         private Coroutine _entranceRoutine;
+        private bool _isClosing; 
 
         private void OnEnable()
         {
+            _isClosing = false;
             ResetCards();
             CursorManager.Instance.SetCursorVisible(false);
-            
+
             foreach (var card in cards)
             {
                 card.OnBought += HandleCardBought;
@@ -72,13 +75,36 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
 
         private void HandleCardBought(UpgradeCardUI selectedCard)
         {
+            if (_isClosing) return;
+            _isClosing = true;
+
             foreach (var card in cards)
             {
                 if (card == selectedCard) continue;
-                card.PlayUnselectedFadeOut(unselectedFadeDuration); 
+                card.PlayUnselectedFadeOut(unselectedFadeDuration);
             }
 
             selectedCard.PlaySelectedDrop(dropDistance, dropDuration);
+        }
+
+        public void Skip()
+        {
+            if (_isClosing) return;
+            _isClosing = true;
+
+            StartCoroutine(SkipRoutine());
+        }
+
+        private IEnumerator SkipRoutine()
+        {
+            foreach (var card in cards)
+            {
+                card.PlayUnselectedFadeOut(unselectedFadeDuration);
+            }
+
+            yield return new WaitForSeconds(unselectedFadeDuration);
+
+            shopUI.SetActive(false);
         }
     }
 }
