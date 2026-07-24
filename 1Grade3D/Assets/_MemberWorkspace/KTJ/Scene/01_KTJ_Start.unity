@@ -25174,6 +25174,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameFlowManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4007587044226146417, guid: b2dac2b81ad6b7647ba5538a5a8ba8e9, type: 3}
+      propertyPath: flowEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f1ab5193905788439e04424017e6d6e, type: 2}
+    - target: {fileID: 4007587044226146417, guid: b2dac2b81ad6b7647ba5538a5a8ba8e9, type: 3}
+      propertyPath: turnEventChannel
+      value: 
+      objectReference: {fileID: 11400000, guid: c2f3071130ccdbd41b36cf31f73679c4, type: 2}
     - target: {fileID: 5322282254563820372, guid: b2dac2b81ad6b7647ba5538a5a8ba8e9, type: 3}
       propertyPath: m_LocalPosition.x
       value: 102.52699
