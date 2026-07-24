@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using _MemberWorkspace.JJW.Asset._02_Script.Events;
-using _MemberWorkspace.JJW.Asset._02_Script.Item;
+using _MemberWorkspace.JJW.Asset._02_Script.Managers;
 using GameLib.EventChannelSystem;
 using UnityEngine;
 
-namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
+namespace _MemberWorkspace.JJW.Asset._02_Script.Item
 {
     [Serializable]
     public class ItemList
