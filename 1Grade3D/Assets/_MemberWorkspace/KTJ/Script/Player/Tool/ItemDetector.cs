@@ -8,15 +8,32 @@ using UnityEngine.InputSystem;
 
 public sealed class ItemDetector : MonoBehaviour
 {
+    private readonly struct DigTarget
+    {
+        public DigTarget(ItemSO item, int groundIndex)
+        {
+            Item = item;
+            GroundIndex = groundIndex;
+        }
+
+        public ItemSO Item { get; }
+        public int GroundIndex { get; }
+    }
+
     [Header("References")]
     [SerializeField] private PlayerStateMachine playerStateMachine;
     [SerializeField] private EventChannelSO playerEventChannel;
 
-    public GroundTile TargetGroundTile { get; private set; }
-    public ItemSO TargetItem { get; private set; }
+    [Header("Detection")]
+    [SerializeField, Min(0f)] private float detectionRange = 5f;
+    [SerializeField, Min(0.02f)] private float highlightRefreshInterval = 0.1f;
+
+    public IReadOnlyList<GroundTile> DetectedItemTiles => detectedItemTiles;
     public bool IsDigging { get; private set; }
 
-    private readonly Dictionary<GroundTile, int> contactedTiles = new();
+    private readonly List<GroundTile> detectedItemTiles = new();
+    private readonly HashSet<GroundItem> highlightedItems = new();
+    private float nextHighlightRefreshTime;
 
     private void Awake()
     {
@@ -28,124 +45,172 @@ public sealed class ItemDetector : MonoBehaviour
 
     private void Update()
     {
-        UpdateNearestTarget();
+        if (Time.unscaledTime >= nextHighlightRefreshTime)
+        {
+            RefreshRangeHighlights();
+            nextHighlightRefreshTime =
+                Time.unscaledTime + highlightRefreshInterval;
+        }
 
-        if (!IsDigging &&
-            TargetItem != null &&
-            Keyboard.current != null &&
+        if (IsDigging)
+        {
+            return;
+        }
+
+        if (Keyboard.current != null &&
             Keyboard.current.spaceKey.wasPressedThisFrame)
         {
-            StartCoroutine(DigRoutine(
-                TargetItem,
-                TargetGroundTile.GroundIndex));
+            TryStartDigging();
         }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        GroundTile groundTile = other.GetComponentInParent<GroundTile>();
-
-        if (groundTile == null)
-        {
-            return;
-        }
-
-        contactedTiles.TryGetValue(groundTile, out int contactCount);
-        contactedTiles[groundTile] = contactCount + 1;
-        UpdateNearestTarget();
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        GroundTile groundTile = other.GetComponentInParent<GroundTile>();
-
-        if (groundTile == null || !contactedTiles.TryGetValue(groundTile, out int contactCount))
-        {
-            return;
-        }
-
-        if (contactCount <= 1)
-        {
-            contactedTiles.Remove(groundTile);
-        }
-        else
-        {
-            contactedTiles[groundTile] = contactCount - 1;
-        }
-
-        UpdateNearestTarget();
     }
 
     private void OnDisable()
     {
         StopAllCoroutines();
-        contactedTiles.Clear();
-        TargetGroundTile = null;
-        TargetItem = null;
+        ClearRangeHighlights();
+        detectedItemTiles.Clear();
         IsDigging = false;
     }
 
-    private void UpdateNearestTarget()
+    private void RefreshRangeHighlights()
     {
-        GroundTile nearestTile = null;
-        float nearestSqrDistance = float.PositiveInfinity;
-        List<GroundTile> invalidTiles = null;
+        ClearRangeHighlights();
 
-        foreach (GroundTile tile in contactedTiles.Keys)
+        GroundItem[] groundItems =
+            FindObjectsByType<GroundItem>(FindObjectsSortMode.None);
+        Vector3 detectorPosition = transform.position;
+        float rangeSqr = detectionRange * detectionRange;
+
+        foreach (GroundItem groundItem in groundItems)
         {
-            if (tile == null || !tile.gameObject.activeInHierarchy)
-            {
-                invalidTiles ??= new List<GroundTile>();
-                invalidTiles.Add(tile);
-                continue;
-            }
-
-            float sqrDistance = (tile.transform.position - transform.position).sqrMagnitude;
-
-            if (sqrDistance >= nearestSqrDistance)
+            if (groundItem == null || !groundItem.gameObject.activeInHierarchy)
             {
                 continue;
             }
 
-            nearestSqrDistance = sqrDistance;
-            nearestTile = tile;
-        }
+            Vector3 itemPosition = groundItem.transform.position;
+            float xDistance = itemPosition.x - detectorPosition.x;
+            float zDistance = itemPosition.z - detectorPosition.z;
+            float planarSqrDistance =
+                xDistance * xDistance + zDistance * zDistance;
 
-        if (invalidTiles != null)
-        {
-            foreach (GroundTile invalidTile in invalidTiles)
+            if (planarSqrDistance > rangeSqr)
             {
-                contactedTiles.Remove(invalidTile);
+                continue;
             }
-        }
 
-        TargetGroundTile = nearestTile;
-        TargetItem = nearestTile != null && nearestTile.HasItem
-            ? nearestTile.Item
-            : null;
+            groundItem.SetDigRangeHighlighted(true);
+            highlightedItems.Add(groundItem);
+        }
     }
 
-    private IEnumerator DigRoutine(
-        ItemSO diggingItem,
-        int diggingGroundIndex)
+    private void ClearRangeHighlights()
+    {
+        foreach (GroundItem groundItem in highlightedItems)
+        {
+            if (groundItem != null)
+            {
+                groundItem.SetDigRangeHighlighted(false);
+            }
+        }
+
+        highlightedItems.Clear();
+    }
+
+    private void RefreshDetectedItems()
+    {
+        detectedItemTiles.Clear();
+
+        GroundTile[] groundTiles =
+            FindObjectsByType<GroundTile>(FindObjectsSortMode.None);
+        Vector3 detectorPosition = transform.position;
+        float rangeSqr = detectionRange * detectionRange;
+
+        foreach (GroundTile tile in groundTiles)
+        {
+            if (tile == null ||
+                !tile.gameObject.activeInHierarchy ||
+                !tile.HasItem ||
+                tile.Item == null)
+            {
+                continue;
+            }
+
+            Vector3 tilePosition = tile.transform.position;
+            float xDistance = tilePosition.x - detectorPosition.x;
+            float zDistance = tilePosition.z - detectorPosition.z;
+            float planarSqrDistance =
+                xDistance * xDistance + zDistance * zDistance;
+
+            if (planarSqrDistance <= rangeSqr)
+            {
+                detectedItemTiles.Add(tile);
+            }
+        }
+    }
+
+    private void TryStartDigging()
     {
         if (playerStateMachine == null || playerEventChannel == null)
         {
             Debug.LogError(
                 "ItemDetector: PlayerStateMachine 또는 PlayerEventChannel이 지정되지 않았습니다.",
                 this);
-            yield break;
+            return;
         }
 
+        RefreshDetectedItems();
+        List<DigTarget> targets = CreateDigSnapshot();
+
+        if (targets.Count == 0)
+        {
+            return;
+        }
+
+        StartCoroutine(DigRoutine(targets));
+    }
+
+    private List<DigTarget> CreateDigSnapshot()
+    {
+        List<DigTarget> targets =
+            new List<DigTarget>(detectedItemTiles.Count);
+
+        foreach (GroundTile tile in detectedItemTiles)
+        {
+            if (tile == null || !tile.HasItem || tile.Item == null)
+            {
+                continue;
+            }
+
+            targets.Add(new DigTarget(tile.Item, tile.GroundIndex));
+        }
+
+        return targets;
+    }
+
+    private IEnumerator DigRoutine(List<DigTarget> targets)
+    {
         IsDigging = true;
         playerStateMachine.OnDigStarted();
 
-        yield return new WaitForSeconds(GetDigDuration(diggingItem.Grade));
+        float totalDigDuration = 0f;
+
+        foreach (DigTarget target in targets)
+        {
+            totalDigDuration += GetDigDuration(target.Item.Grade);
+        }
+
+        yield return new WaitForSeconds(totalDigDuration);
+
+        foreach (DigTarget target in targets)
+        {
+            playerEventChannel.RaiseEvent(
+                PlayerEvents.ItemDigEvent.Init(target.GroundIndex));
+        }
 
         playerStateMachine.ChangeState(playerStateMachine.IdleState);
         IsDigging = false;
-        playerEventChannel.RaiseEvent(
-            PlayerEvents.ItemDigEvent.Init(diggingGroundIndex));
+        detectedItemTiles.Clear();
     }
 
     private static float GetDigDuration(ItemGrade grade)
@@ -157,5 +222,28 @@ public sealed class ItemDetector : MonoBehaviour
             ItemGrade.Legendary => 8f,
             _ => 3f
         };
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        const int segmentCount = 64;
+        Vector3 center = transform.position;
+
+        Gizmos.color = new Color(1f, 0.75f, 0.1f, 0.9f);
+
+        Vector3 previousPoint = center +
+            new Vector3(detectionRange, 0f, 0f);
+
+        for (int i = 1; i <= segmentCount; i++)
+        {
+            float angle = i * Mathf.PI * 2f / segmentCount;
+            Vector3 nextPoint = center + new Vector3(
+                Mathf.Cos(angle) * detectionRange,
+                0f,
+                Mathf.Sin(angle) * detectionRange);
+
+            Gizmos.DrawLine(previousPoint, nextPoint);
+            previousPoint = nextPoint;
+        }
     }
 }

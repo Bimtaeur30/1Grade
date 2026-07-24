@@ -131,6 +131,8 @@ MonoBehaviour:
   playerInput: {fileID: 11400000, guid: f766f4eb3cf094142bc54b0b7118639c, type: 2}
   playerChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
   poolManager: {fileID: 11400000, guid: b17c4ba487b81f642a923be629ce8c11, type: 2}
+  spriteScanPixelateMaterial: {fileID: 2100000, guid: c125f7bfded248a3be050d8ea862b2a5, type: 2}
+  movingStripeMaterial: {fileID: 2100000, guid: a74d63cf91e846a3b1827d2e54c09f68, type: 2}
 --- !u!114 &-1236864784165523070
 MonoBehaviour:
   m_ObjectHideFlags: 0
