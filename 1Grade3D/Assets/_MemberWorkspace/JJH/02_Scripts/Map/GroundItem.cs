@@ -17,6 +17,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         [SerializeField] private Material movingStripeMaterial;
 
         public ItemSO Item { get; private set; }
+        public bool IsDug => _isPopUped;
 
         private BoxCollider _boxCollider;
         private SpriteRenderer _spriteRenderer;
@@ -118,6 +119,11 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
         public void SetDigRangeHighlighted(bool isHighlighted)
         {
+            if (_isPopUped)
+            {
+                isHighlighted = false;
+            }
+
             if (_isInDigRange == isHighlighted)
             {
                 return;

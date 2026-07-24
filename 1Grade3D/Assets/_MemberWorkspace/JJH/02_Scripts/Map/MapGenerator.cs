@@ -40,7 +40,14 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
         private void StartGenerate(StormStartEvent evt)
         {
-            _itemList = evt.ItemList;
+            _itemList = evt.ItemList ?? new List<ItemSO>();
+
+            if (_itemList.Count == 0)
+            {
+                Debug.LogWarning(
+                    "MapGenerator: 생성할 아이템 목록이 비어 있습니다. 빈 땅만 생성합니다.",
+                    this);
+            }
 
             GenerateMap();
             SpawnItems();
