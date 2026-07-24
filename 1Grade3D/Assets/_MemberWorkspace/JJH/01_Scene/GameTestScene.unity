@@ -11325,6 +11325,7 @@ MonoBehaviour:
   <ScalePlateEnum>k__BackingField: 1
   ItemPrefab: {fileID: 3781871642630554620, guid: 6cd4d5ad7f63f8f488d3a31f5f2a1c83, type: 3}
   ItemPrefabParent: {fileID: 919912149}
+  WeightText: {fileID: 0}
 --- !u!1 &340377101
 GameObject:
   m_ObjectHideFlags: 0
@@ -11359,11 +11360,6 @@ MonoBehaviour:
   <FlowChannel>k__BackingField: {fileID: 11400000, guid: 3f1ab5193905788439e04424017e6d6e, type: 2}
   width: 10
   height: 10
-  itemList:
-  - {fileID: 11400000, guid: 9cb2e13602b75d3469d8fd4f0dde76f5, type: 2}
-  - {fileID: 11400000, guid: 428af21c54dafc6409cf23faa7c8c410, type: 2}
-  minItemCount: 5
-  maxItemCount: 15
   poolManager: {fileID: 11400000, guid: b17c4ba487b81f642a923be629ce8c11, type: 2}
   groundTilePool: {fileID: 11400000, guid: 6ff75161670ef7c42aa9e066c73e0240, type: 2}
 --- !u!4 &340377103
@@ -18321,6 +18317,7 @@ MonoBehaviour:
   <ScalePlateEnum>k__BackingField: 0
   ItemPrefab: {fileID: 3781871642630554620, guid: 6cd4d5ad7f63f8f488d3a31f5f2a1c83, type: 3}
   ItemPrefabParent: {fileID: 558036382}
+  WeightText: {fileID: 0}
 --- !u!4 &711795043 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 767562868964138845, guid: 7baba197ce36c92439b423eabaad3737, type: 3}
@@ -18809,6 +18806,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDetector
   playerStateMachine: {fileID: 7720689672760880223}
   playerEventChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
+  detectionRange: 5
+  highlightRefreshInterval: 0.1
 --- !u!4 &813964213 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6075155838382831309, guid: 273b8f4150121d249ac7e2fd11da7005, type: 3}
