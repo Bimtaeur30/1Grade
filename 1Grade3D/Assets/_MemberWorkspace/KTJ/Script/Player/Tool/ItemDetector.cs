@@ -23,6 +23,7 @@ public sealed class ItemDetector : MonoBehaviour
     [Header("References")]
     [SerializeField] private PlayerStateMachine playerStateMachine;
     [SerializeField] private EventChannelSO playerEventChannel;
+    [SerializeField] private GameObject itemInRangeToggleObject;
 
     [Header("Detection")]
     [SerializeField, Min(0f)] private float detectionRange = 5f;
@@ -41,6 +42,8 @@ public sealed class ItemDetector : MonoBehaviour
         {
             playerStateMachine = GetComponentInParent<PlayerStateMachine>();
         }
+
+        SetItemInRangeToggle(false);
     }
 
     private void Update()
@@ -70,6 +73,7 @@ public sealed class ItemDetector : MonoBehaviour
         ClearRangeHighlights();
         detectedItemTiles.Clear();
         IsDigging = false;
+        SetItemInRangeToggle(false);
     }
 
     private void RefreshRangeHighlights()
@@ -83,7 +87,9 @@ public sealed class ItemDetector : MonoBehaviour
 
         foreach (GroundItem groundItem in groundItems)
         {
-            if (groundItem == null || !groundItem.gameObject.activeInHierarchy)
+            if (groundItem == null ||
+                !groundItem.gameObject.activeInHierarchy ||
+                groundItem.IsDug)
             {
                 continue;
             }
@@ -102,6 +108,8 @@ public sealed class ItemDetector : MonoBehaviour
             groundItem.SetDigRangeHighlighted(true);
             highlightedItems.Add(groundItem);
         }
+
+        SetItemInRangeToggle(highlightedItems.Count > 0);
     }
 
     private void ClearRangeHighlights()
@@ -115,6 +123,15 @@ public sealed class ItemDetector : MonoBehaviour
         }
 
         highlightedItems.Clear();
+    }
+
+    private void SetItemInRangeToggle(bool isActive)
+    {
+        if (itemInRangeToggleObject != null &&
+            itemInRangeToggleObject.activeSelf != isActive)
+        {
+            itemInRangeToggleObject.SetActive(isActive);
+        }
     }
 
     private void RefreshDetectedItems()
