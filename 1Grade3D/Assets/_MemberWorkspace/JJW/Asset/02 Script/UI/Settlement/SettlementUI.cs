@@ -55,7 +55,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
 
             settlementUIPanel.DOFade(1, fadeDuration).OnComplete(() =>
             {
-                _drawRoutine = StartCoroutine(DrawCollectedItemRoutine(evt.items));
+                _drawRoutine = StartCoroutine(DrawCollectedItemRoutine(evt.Items));
             });
         }
 

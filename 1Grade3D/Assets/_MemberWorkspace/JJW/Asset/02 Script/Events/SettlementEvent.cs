@@ -4,13 +4,24 @@ using GameLib.EventChannelSystem;
 
 namespace _MemberWorkspace.JJW.Asset._02_Script.Events
 {
+    public static class SettlementEvents 
+    {
+        public static readonly SettlementEvent SettlementEvent = new(new List<ItemSO>());
+    }
+
     public class SettlementEvent : GameEvent
     {
-        public readonly List<ItemSO> items;
+        public List<ItemSO> Items { get; private set; }
+
+        public SettlementEvent Init(List<ItemSO> items)
+        {
+            Items = items;
+            return this;
+        }
 
         public SettlementEvent(List<ItemSO> items)
         {
-            this.items = items;
+            Items = items;
         }
     }
 }

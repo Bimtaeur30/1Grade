@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using _MemberWorkspace.JJW.Asset._02_Script.Events;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -70,6 +71,8 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
             yield return StartCoroutine(LerpLight(defaultIntensity, defaultColor, 1.5f));
             introCamera.Priority = 10;
             playerCamera.Priority = 20;
+
+            mapGenerator.FlowChannel.RaiseEvent(FlowEvent.StormEndEvent);
         }
 
         private IEnumerator Rotate()
