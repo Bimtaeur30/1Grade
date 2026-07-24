@@ -60,6 +60,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
             if (_drawRoutine != null) StopCoroutine(_drawRoutine);
             if (_typeRoutine != null) StopCoroutine(_typeRoutine);
             checkBtn.SetActive(true);
+            CursorManager.Instance.SetCursorVisible(false);
             _moneyTween?.Kill();
             settlementUIPanel.DOKill();
 
