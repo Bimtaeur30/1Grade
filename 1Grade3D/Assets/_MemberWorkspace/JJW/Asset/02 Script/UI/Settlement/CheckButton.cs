@@ -1,4 +1,3 @@
-using _MemberWorkspace.JJW.Asset._02_Script.Events;
 using _MemberWorkspace.JJW.Asset._02_Script.Managers;
 using DG.Tweening;
 using UnityEngine;

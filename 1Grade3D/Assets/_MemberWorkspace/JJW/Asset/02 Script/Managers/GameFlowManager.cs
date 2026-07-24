@@ -52,6 +52,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
 
         public void OpenShop()//정산 완료 버트 누를때
         {
+            Debug.Log("Open Shop");
             eventChannel.RaiseEvent(FlowEvents.ShopOpenEvent);
         }
 
