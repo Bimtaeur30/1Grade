@@ -247,6 +247,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
             {
                 _exitSequence = null;
                 shopUI.SetActive(false);
+                GameFlowManager.Instance.CloseShop();//스톰 연출로 넘어가기
             });
         }
 

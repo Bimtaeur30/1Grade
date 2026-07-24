@@ -1,3 +1,4 @@
+using _MemberWorkspace.JJW.Asset._02_Script.Managers;
 using UnityEngine;
 
 namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Shop
