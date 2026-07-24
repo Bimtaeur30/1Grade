@@ -15,7 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: "\uC774\uAC83\uC774 C# \uC774\uB2E4"
   <Description>k__BackingField: "\uB77C\uBA74 \uBC1B\uCE68\uB300\uB85C \uC4F8 \uC218
     \uC788\uC744\uAC70 \uAC19\uB2E4."
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: b458a5f7156595348b4dd92d8da807a7, type: 3}
   <Grade>k__BackingField: 2
   <MaxDurability>k__BackingField: 0
   <Weight>k__BackingField: 0

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::_MemberWorkspace.JJW.Asset._02_Script.Item.ItemSO
   <Name>k__BackingField: "\uBC84\uB824\uC9C4 \uC7A5\uB09C\uAC10"
   <Description>k__BackingField: "\uB204\uAD70\uAC00\uC758 \uCD94\uC5B5\uC774 \uB2F4\uACA8\uC788\uB2E4."
-  <Icon>k__BackingField: {fileID: 0}
+  <Icon>k__BackingField: {fileID: 21300000, guid: 6c99bd9f44df9f944afa2fb889afea7c, type: 3}
   <Grade>k__BackingField: 0
   <MaxDurability>k__BackingField: 0
   <Weight>k__BackingField: 0
