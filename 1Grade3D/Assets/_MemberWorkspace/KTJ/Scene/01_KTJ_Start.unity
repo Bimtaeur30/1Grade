@@ -19198,6 +19198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ItemDetector
   playerStateMachine: {fileID: 7720689672760880223}
   playerEventChannel: {fileID: 11400000, guid: ce59c535ed9f15145844edcafa3b9fb6, type: 2}
+  detectionRange: 1
 --- !u!136 &804878038
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -22508,6 +22509,17 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &1275097436 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3850268724760224234, guid: b9adfbb0e9935204884c7557c418a194, type: 3}
+  m_PrefabInstance: {fileID: 1104289172}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1281410189
 GameObject:
   m_ObjectHideFlags: 0
@@ -24184,6 +24196,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 794692112360131446, guid: 4b2018539e9d53f44843835607122e7d, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 1275097436}
     - target: {fileID: 1333239852785958313, guid: 4b2018539e9d53f44843835607122e7d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 960
@@ -26282,11 +26298,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1104289173}
   - {fileID: 1066737733}
   - {fileID: 1232788083}
   - {fileID: 751765970}
   - {fileID: 1915316716}
+  - {fileID: 1104289173}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}

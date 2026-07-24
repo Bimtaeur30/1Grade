@@ -12,12 +12,17 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
         [SerializeField] private EventChannelSO playerChannel;
         [SerializeField] private PoolManagerSO poolManager;
 
+        [Header("Scan Materials")]
+        [SerializeField] private Material spriteScanPixelateMaterial;
+        [SerializeField] private Material movingStripeMaterial;
+
         public ItemSO Item { get; private set; }
 
         private BoxCollider _boxCollider;
         private SpriteRenderer _spriteRenderer;
         private Renderer _renderer;
         private readonly string _outlineProperty = "_OutlineThickness";
+        private MaterialPropertyBlock _propertyBlock;
 
         private Coroutine _popRoutine;
 
@@ -25,16 +30,23 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
         private bool _isDragging;
         private bool _isPopUped = false;
+        private bool _isScanning;
+        private bool _isInDigRange;
 
         private void Awake()
         {
             _boxCollider = GetComponent<BoxCollider>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _renderer = GetComponent<Renderer>();
+            _propertyBlock = new MaterialPropertyBlock();
         }
 
         private void OnEnable()
         {
+            playerChannel.AddListener<ScannerEvent>(HandleScannerEvent);
+            _isScanning = PlayerEvents.ScannerEvent.IsStart;
+            _isInDigRange = false;
+            ApplyCurrentMaterial();
             SetOutline(0f);
             playerInput.OnMousePerformed += HandleMousePerformed;
             playerInput.OnMouseCanceled += HandleMouseCanceled;
@@ -42,6 +54,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
         private void OnDisable()
         {
+            playerChannel.RemoveListener<ScannerEvent>(HandleScannerEvent);
             playerInput.OnMousePerformed -= HandleMousePerformed;
             playerInput.OnMouseCanceled -= HandleMouseCanceled;
         }
@@ -92,7 +105,44 @@ namespace _MemberWorkspace.JJH._02_Scripts.Map
 
         public void SetOutline(float thickness)
         {
-            _renderer.material.SetFloat(_outlineProperty, thickness);
+            _renderer.GetPropertyBlock(_propertyBlock);
+            _propertyBlock.SetFloat(_outlineProperty, thickness);
+            _renderer.SetPropertyBlock(_propertyBlock);
+        }
+
+        private void HandleScannerEvent(ScannerEvent @event)
+        {
+            _isScanning = @event.IsStart;
+            ApplyCurrentMaterial();
+        }
+
+        public void SetDigRangeHighlighted(bool isHighlighted)
+        {
+            if (_isInDigRange == isHighlighted)
+            {
+                return;
+            }
+
+            _isInDigRange = isHighlighted;
+            ApplyCurrentMaterial();
+        }
+
+        private void ApplyCurrentMaterial()
+        {
+            Material targetMaterial =
+                !_isScanning && _isInDigRange
+                    ? movingStripeMaterial
+                    : spriteScanPixelateMaterial;
+
+            if (targetMaterial == null)
+            {
+                Debug.LogError(
+                    "GroundItem: 적용할 Material이 지정되지 않았습니다.",
+                    this);
+                return;
+            }
+
+            _spriteRenderer.sharedMaterial = targetMaterial;
         }
 
         public void PopUp(float jumpHeight = 0.8f, float duration = 0.35f)
