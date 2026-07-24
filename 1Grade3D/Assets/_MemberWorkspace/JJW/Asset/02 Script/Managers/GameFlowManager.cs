@@ -61,9 +61,6 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
             CurrentState = GameState.Storm;
             eventChannel.RaiseEvent(FlowEvents.StormStartEvent);
         }
-        
-        
-        
 
         public void EndStorm()//지한이가 호출(폭풍연출 끝나면)
         {
