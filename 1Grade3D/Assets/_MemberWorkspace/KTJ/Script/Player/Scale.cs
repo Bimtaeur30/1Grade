@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using GameLib.EventChannelSystem;
+using _MemberWorkspace.JJW.Asset._02_Script.Events;
 using _MemberWorkspace.JJW.Asset._02_Script.Item;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +13,7 @@ public enum ScalePlateEnum
 public class Scale : MonoBehaviour
 {
     [SerializeField] private EventChannelSO PlayerChannel;
+    [SerializeField] private EventChannelSO TurnChannel;
     [SerializeField] private PlayerStat PlayerStat;
     [SerializeField] private Slider WeightSlider;
     [SerializeField] private ScalePlate LeftScalePlate;
@@ -23,7 +26,9 @@ public class Scale : MonoBehaviour
 
     public float LeftWeight { get; private set; }
     public float RightWeight { get; private set; }
+    public IReadOnlyList<ItemSO> LoadedItems => loadedItems;
 
+    private readonly List<ItemSO> loadedItems = new();
     private ItemSO currentItem;
     private bool isSliderInitialized;
     private bool hasReachedMaxWeight;
@@ -67,6 +72,7 @@ public class Scale : MonoBehaviour
     private void OnEnable()
     {
         PlayerChannel?.AddListener<ItemEquipEvent>(HandleItemEquipEvent);
+        TurnChannel?.AddListener<TurnEndEvent>(HandleTurnEndEvent);
 
         if (PlayerStat != null)
         {
@@ -78,6 +84,7 @@ public class Scale : MonoBehaviour
     private void OnDisable()
     {
         PlayerChannel?.RemoveListener<ItemEquipEvent>(HandleItemEquipEvent);
+        TurnChannel?.RemoveListener<TurnEndEvent>(HandleTurnEndEvent);
 
         if (PlayerStat != null)
         {
@@ -90,6 +97,14 @@ public class Scale : MonoBehaviour
         if (@event.Item == null)
         {
             Debug.LogError("Scale: ItemEquipEvent에 Item이 없습니다.", this);
+            return;
+        }
+
+        if (!CanAddItem(@event.Item))
+        {
+            Debug.Log(
+                $"Scale: 최대 무게를 초과하여 {@event.Item.name} 아이템을 실을 수 없습니다.",
+                this);
             return;
         }
 
@@ -111,8 +126,46 @@ public class Scale : MonoBehaviour
         }
 
         targetPlate.AddItem(currentItem);
+        loadedItems.Add(currentItem);
         AddPlateWeight(@event.ScalePlateEnum, currentItem.Weight);
         AddItemWeight(currentItem.Weight);
+    }
+
+    private void HandleTurnEndEvent(TurnEndEvent @event)
+    {
+        if (TurnChannel == null)
+        {
+            return;
+        }
+
+        TurnChannel.RaiseEvent(
+            new SettlementEvent(new List<ItemSO>(loadedItems)));
+        loadedItems.Clear();
+    }
+
+    private bool CanAddItem(ItemSO item)
+    {
+        float maxWeight;
+
+        if (PlayerStat != null)
+        {
+            maxWeight = PlayerStat.MaxWeight;
+        }
+        else if (WeightSlider != null)
+        {
+            maxWeight = WeightSlider.maxValue;
+        }
+        else
+        {
+            Debug.LogError(
+                "Scale: 최대 무게를 확인할 PlayerStat 또는 WeightSlider가 없습니다.",
+                this);
+            return false;
+        }
+
+        float currentWeight = LeftWeight + RightWeight;
+        return maxWeight > 0f &&
+               currentWeight + item.Weight <= maxWeight;
     }
 
     private void AddPlateWeight(ScalePlateEnum plate, float weight)

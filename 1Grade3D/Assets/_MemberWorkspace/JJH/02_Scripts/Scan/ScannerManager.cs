@@ -84,7 +84,7 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
 
             scannerUI.Open();
             scannerUI.SetGauge(0);
-            scannerUI.HideCoolTime();
+            scannerUI.FadeOutCoolTime();
         }
 
         private void StopScanner()
@@ -95,7 +95,8 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
             _nextScanTime = Time.unscaledTime + scanCoolTime;
 
             scannerUI.SetCoolTime(0f);
-            scannerUI.ShowCoolTime();
+            scannerUI.SetCoolTimeCharging();
+            scannerUI.FadeInCoolTime();
 
             playerChannel.RaiseEvent(PlayerEvents.ScannerEvent.Init(false));
 
@@ -177,11 +178,11 @@ namespace _MemberWorkspace.JJH._02_Scripts.Scan
         {
             if (Time.unscaledTime >= _nextScanTime)
             {
-                scannerUI.HideCoolTime();
+                scannerUI.SetCoolTimeReady();
                 return;
             }
 
-            scannerUI.ShowCoolTime();
+            scannerUI.SetCoolTimeCharging();
 
             float remain = _nextScanTime - Time.unscaledTime;
             float progress = 1f - (remain / scanCoolTime);
