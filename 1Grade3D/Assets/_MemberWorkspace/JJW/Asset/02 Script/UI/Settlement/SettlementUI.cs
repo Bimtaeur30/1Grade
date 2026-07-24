@@ -17,7 +17,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
         [SerializeField] private EventChannelSO eventChannel;
         [SerializeField] private GameObject collectedItemUIPrefab;
         [SerializeField] private Transform itemListContainer;
-        [SerializeField] private Image settlementUIPanel;
+        [SerializeField] private CanvasGroup settlementUIPanel;
         [SerializeField] private TextMeshProUGUI totalMoneyText;
         
         [SerializeField] private float fadeDuration = 1f;
@@ -32,9 +32,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
 
         private void Start()
         {
-            var color = settlementUIPanel.color;
-            color.a = 0;
-            settlementUIPanel.color = color;
+            settlementUIPanel.alpha = 0;
         }
 
         private void OnEnable()
@@ -66,11 +64,9 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.UI.Settlement
             _moneyTween?.Kill();
             settlementUIPanel.DOKill();
 
-            var color = settlementUIPanel.color;
-            color.a = 0;
-            settlementUIPanel.color = color;
+            settlementUIPanel.alpha = 0;
 
-            _currentMoney = 0;
+                        _currentMoney = 0;
             totalMoneyText.text = "0";
 
             for (int i = itemListContainer.childCount - 1; i >= 0; i--)
