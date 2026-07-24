@@ -26,7 +26,7 @@ namespace _MemberWorkspace.JJW.Asset._02_Script.Managers
         }
         private void Start()
         {
-            StartTurn();
+            StartStorm();
         }
 
         private void Update()
